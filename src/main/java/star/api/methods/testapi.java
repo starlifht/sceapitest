@@ -44,14 +44,14 @@ public class testapi {
 	}
 	@Test
 	public void dfsdf(){
-		Map<String ,String[]> data=new HashMap<String, String[]>() ;
-		data.put("access_token",  new String[]{"47dd89c79df4e10fb66dbfb9918f6dc1"});
-		try {
-			String s =HttpClientUtil.doPost("http://open_api.scetest.sohuno.com/apps/93667/restart",data);
-			System.out.print(s);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		Map<String ,String[]> data=new HashMap<String, String[]>() ;
+//		data.put("access_token",  new String[]{"47dd89c79df4e10fb66dbfb9918f6dc1"});
+//		try {
+//			String s =HttpClientUtil.doPost("http://open_api.scetest.sohuno.com/apps/93667/restart");
+//			System.out.print(s);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 }
