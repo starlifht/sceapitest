@@ -1,4 +1,4 @@
-package com.test.test;
+package star.test.test;
 
 public class hello {
 

@@ -1,4 +1,4 @@
-package com.test.methods;
+package star.api.methods;
 
 import java.util.ArrayList;
 import java.util.List;

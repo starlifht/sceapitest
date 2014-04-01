@@ -1,4 +1,4 @@
-package com.test.openapi;
+package star.test.test;
 
 import static org.junit.Assert.*;
 
@@ -6,9 +6,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class AppTest {
+public class helloworldTest {
 
-	public AppTest() {
+	public helloworldTest() {
 	}
 
 	@Before
@@ -21,7 +21,11 @@ public class AppTest {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+		fail("Not yet implemented扯淡");
+	}
+	@Test
+	public void test2() {
+		//success("Not yet implemented");
 	}
 
 }

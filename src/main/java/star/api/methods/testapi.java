@@ -1,4 +1,4 @@
-package com.test.methods;
+package star.api.methods;
 
 
 import org.apache.http.HttpResponse;
