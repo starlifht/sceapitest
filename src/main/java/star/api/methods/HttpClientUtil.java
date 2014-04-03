@@ -1,10 +1,13 @@
 package star.api.methods;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -12,6 +15,7 @@ import java.util.Map.Entry;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -21,6 +25,10 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.FileEntity;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.CoreConnectionPNames;
@@ -30,7 +38,9 @@ import org.apache.http.util.EntityUtils;
 public class HttpClientUtil {
 
 	private final static String DEFAULT_CHARSET = "UTF-8";
-
+	public static final String  DOMAIN="http://open_api.scetest.sohuno.com"; 
+	public static final String  ACCESS_TOKEN="97043a103dfa54b2344b741300459a8e";
+	public static final String APPID="93695";
 	public static String doGet(String url) throws Exception {
 		HttpGet httpGet = new HttpGet(url);
 		
@@ -100,6 +110,13 @@ public static String doPost(String url) throws Exception {
 	return sendRequest(HttpPost);
 
 }
+public static String doDelete(String url) throws Exception {
+	HttpDelete HttpDelete = new HttpDelete(url);
+	HttpDelete.addHeader("Content-Type",
+			"application/x-www-form-urlencoded; charset=" + DEFAULT_CHARSET);
+	return sendRequest(HttpDelete);
+
+}
 	private static String prepareParam(Map<String,String> paramMap){
         StringBuffer sb = new StringBuffer();
         if(paramMap.isEmpty()){
@@ -145,6 +162,7 @@ public static String doPost(String url) throws Exception {
       
 		return result.toString();
     }
+
 	public static String doPost(String url, Map<String, String> data)
 			throws Exception {
 		List<NameValuePair> formparams = new ArrayList<NameValuePair>();
@@ -172,7 +190,70 @@ public static String doPost(String url) throws Exception {
 
 		return sendRequest(httpPost);
 	}
+	public static String doPost4(String url, Map<String, String> data)
+			throws Exception {
+		List<NameValuePair> formparams = new ArrayList<NameValuePair>();
 
+		for (Entry<String, String> entry : data.entrySet()) {
+
+			if ("".equals(entry.getValue())) {
+				continue;
+			}
+			//System.out.println(entry.getKey() + entry.getValue());
+			formparams.add(new BasicNameValuePair(entry.getKey(),entry.getValue()));
+
+		}
+
+		UrlEncodedFormEntity requestEntity = null;
+
+		requestEntity = new UrlEncodedFormEntity(formparams, "UTF-8");
+
+		// System.out.println(requestEntity.toString());
+		HttpPost httpPost = new HttpPost(url);
+		httpPost.setEntity(requestEntity);
+		httpPost.addHeader("Content-Type",
+				"application/x-www-form-urlencoded; charset=" + DEFAULT_CHARSET);
+
+		return sendRequest(httpPost);
+	}
+
+	public static String doPostFile(String url,String filePath) throws Exception{
+		 HttpClient httpclient = new DefaultHttpClient();  
+	        //请求处理页面  
+	        HttpPost httppost = new HttpPost(  
+	                url);  
+	        //创建待处理的文件  
+	       // FileBody file = new FileBody(new File("d:/22.rar"));  
+	      //  httppost.addHeader("Content-Type","application/octet-stream; charset=" + DEFAULT_CHARSET);
+	        FileBody file = new FileBody(new File(filePath));  
+	        //创建待处理的表单域内容文本  
+	        StringBody version = new StringBody("1");  	  
+	        //对请求的表单域进行填充  
+	        MultipartEntity reqEntity = new MultipartEntity();  
+	        reqEntity.addPart("file", file);  
+	        //reqEntity.addPart("version", version);  
+	        //设置请求  
+	        httppost.setEntity(reqEntity);  
+	        //执行  
+	        HttpResponse response = httpclient.execute(httppost);  
+	        //HttpEntity resEntity = response.getEntity();  
+	        //System.out.println(response.getStatusLine());  
+	       // if(HttpStatus.SC_OK==response.getStatusLine().getStatusCode()){  
+			String status =response.getStatusLine().toString();
+			System.out.println(status);
+	            HttpEntity entity = response.getEntity();  
+	            //显示内容  
+	            String result=null;
+	            if (entity != null) {  
+	            	result=EntityUtils.toString(entity);
+	            	return result; 
+	            } else{
+	            	return "entity is null";
+	            }
+	        
+	     //   }  
+	        
+	}
 	public static String sendRequest(HttpUriRequest httpUriRequest)
 			throws Exception {
 
@@ -203,7 +284,15 @@ public static String doPost(String url) throws Exception {
 
 	public static void main(String[] args) {
 		try {
-		
+			Map<String,String> data =new HashMap<String ,String>();
+			data.put("version", "3");
+			//System.out.println(RandomStringUtils.random(6));
+			//String response= HttpClientUtil.doPut(DOMAIN+"/apps/"+APPID+"/versions?access_token="+ACCESS_TOKEN,data);
+//			  Class clazz = this.getClass(); 
+			URL url = HttpClientUtil.class.getResource("1.png");
+			System.out.print("");
+			String response=HttpClientUtil.doPostFile("http://localhost:8080/star/test_upFile_doUpLoad",HttpClientUtil.class.getResource("/1.png").getPath());
+			System.out.print(response);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
