@@ -18,6 +18,7 @@ import star.api.methods.Tools;
 public class AppTest {
 	//public static final String  DOMAIN="http://open_api.scetest.sohuno.com"; //  sohutest.apps.sohuno.com
 	public static final String  DOMAIN="http://sohutest.apps.sohuno.com";
+	//public static final String  DOMAIN="http://openapi-test.apps.sohuno.com";
 	//public static final String  ACCESS_TOKEN="97043a103dfa54b2344b741300459a8e";//测试
 	public static final String  ACCESS_TOKEN="97043a103dfa54b2344b741300459a8e";//线上
 	public static final String APPID="93695";

@@ -110,6 +110,13 @@ public static String doPost(String url) throws Exception {
 	return sendRequest(HttpPost);
 
 }
+public static String doPut(String url) throws Exception {
+	HttpPut HttpPut = new HttpPut(url);
+	HttpPut.addHeader("Content-Type",
+			"application/x-www-form-urlencoded; charset=" + DEFAULT_CHARSET);
+	return sendRequest(HttpPut);
+
+}
 public static String doDelete(String url) throws Exception {
 	HttpDelete HttpDelete = new HttpDelete(url);
 	HttpDelete.addHeader("Content-Type",
@@ -231,7 +238,7 @@ public static String doDelete(String url) throws Exception {
 	        //对请求的表单域进行填充  
 	        MultipartEntity reqEntity = new MultipartEntity();  
 	        reqEntity.addPart("file", file);  
-	        //reqEntity.addPart("version", version);  
+	        reqEntity.addPart("object_name", version);  
 	        //设置请求  
 	        httppost.setEntity(reqEntity);  
 	        //执行  
