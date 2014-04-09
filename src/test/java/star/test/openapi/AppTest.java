@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import star.api.methods.HttpClientUtil;
 import star.api.methods.Tools;
+import star.test.methods.Params;
 
 
 public class AppTest {
@@ -38,7 +39,7 @@ public class AppTest {
 	public void getAppList() {//获取app全部信息
 		try {
 			String response= HttpClientUtil
-					.doGet(DOMAIN+"/apps?access_token="+ACCESS_TOKEN);
+					.doGet(Params.DOMAIN+"/apps?access_token="+Params.ACCESS_TOKEN);
 			
 			if(!JSONObject.fromObject(response).getString("code").equals("1000")){
 				fail(response);

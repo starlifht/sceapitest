@@ -48,7 +48,15 @@ public class HttpClientUtil {
 				"application/x-www-form-urlencoded; charset=" + DEFAULT_CHARSET);
 		return sendRequest(httpGet);
 	}
-
+	public static String doGet(String url,Map<String,String> paramMap) throws Exception {
+		
+		 String paramStr = prepareParam(paramMap);
+		HttpGet httpGet = new HttpGet(url+"?"+paramStr);
+		
+		httpGet.addHeader("Content-Type",
+				"application/x-www-form-urlencoded; charset=" + DEFAULT_CHARSET);
+		return sendRequest(httpGet);
+	}
 //	 public static String doPost(String url, Map<String, String[]> data)
 //	 throws Exception {
 //	 List<NameValuePair> formparams = new ArrayList<NameValuePair>();
@@ -197,32 +205,7 @@ public static String doDelete(String url) throws Exception {
 
 		return sendRequest(httpPost);
 	}
-	public static String doPost4(String url, Map<String, String> data)
-			throws Exception {
-		List<NameValuePair> formparams = new ArrayList<NameValuePair>();
 
-		for (Entry<String, String> entry : data.entrySet()) {
-
-			if ("".equals(entry.getValue())) {
-				continue;
-			}
-			//System.out.println(entry.getKey() + entry.getValue());
-			formparams.add(new BasicNameValuePair(entry.getKey(),entry.getValue()));
-
-		}
-
-		UrlEncodedFormEntity requestEntity = null;
-
-		requestEntity = new UrlEncodedFormEntity(formparams, "UTF-8");
-
-		// System.out.println(requestEntity.toString());
-		HttpPost httpPost = new HttpPost(url);
-		httpPost.setEntity(requestEntity);
-		httpPost.addHeader("Content-Type",
-				"application/x-www-form-urlencoded; charset=" + DEFAULT_CHARSET);
-
-		return sendRequest(httpPost);
-	}
 
 	public static String doPostFile(String url,String filePath) throws Exception{
 		 HttpClient httpclient = new DefaultHttpClient();  

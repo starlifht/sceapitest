@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import junit.framework.TestCase;
 import net.sf.json.JSONObject;
 
 import org.junit.After;
@@ -14,8 +15,10 @@ import org.junit.Test;
 import star.api.methods.HttpClientUtil;
 import star.test.methods.Params;
 
-public class LogsTest {
-
+public class LogsTest extends TestCase{
+	 public LogsTest (String name){
+		  super(name);
+		 }//注意这里添加了这个构造函数，因为要调用父类的构造函数，用于下面Suite添加该类的测试方法
 	public LogsTest() {
 	}
 
@@ -64,4 +67,8 @@ public class LogsTest {
 			e.printStackTrace();
 		}
 }
+	 @Test
+		public void testlll(){
+			junit.textui.TestRunner.run(AllTests.suite());
+		}
 }

@@ -17,7 +17,7 @@ public class ServiceGatewayTest {
 	public static final String  DOMAIN="http://sohutest.apps.sohuno.com";
 		//public static final String  DOMAIN="http://localhost/SCE_openAPI";
 		//public static final String  ACCESS_TOKEN="97043a103dfa54b2344b741300459a8e";//测试
-		public static final String  ACCESS_TOKEN="97043a103dfa54b2344b741300459a8e";//线上
+		public static final String  ACCESS_TOKEN="bb4028f1240acd48938ce8967a77c134";//线上
 		private static final String APPID="93695";
 		private static final String SERV_INSTANCEID="1";
 	public ServiceGatewayTest() {
