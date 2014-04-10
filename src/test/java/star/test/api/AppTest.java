@@ -1,4 +1,4 @@
-package star.test.openapi;
+package star.test.api;
 
 import static org.junit.Assert.*;
 
