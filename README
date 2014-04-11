@@ -1,1 +1,40 @@
 SCE API TEST
+=======================concle=====================================
+1625	app.yaml not found or some format problems with app.yaml.	app.yaml不存在或格式错误
+1628	appid is invalid in app.yaml.	app.yaml中appid参数不合法
+1627	appid or start params not included in app.yaml.	app.yaml未检测到appid或start参数
+1629	some params invalid in app.yaml.	app.yaml格式错误
+1622	upload file fail	上传文件失败
+1635	can not edit your self	不能改变自己角色
+1702	delete app service fail	删除app服务失败
+1621	delete domain error	删除域名失败
+1611	undeploy instance fail	卸载实例失败
+1420	parameters are invalid	参数错误
+1602	app name invalid	名称不允许使用
+1601	app already exists	名称已注册
+1606	app stop fail	启动app失败
+1631	dump stack fail	导出堆栈失败
+1630	update version desc fail	更新版本描述失败
+1500	server error	服务器错误
+1626	Not found any Program File	未发现上传程序包
+1200	success	正常返回
+1701	add app service fail	添加app服务失败
+1633	add security ip fail	添加ip名单失败
+1632	add security ua fail	添加ua失败
+1634	add security rate fail	添加流量限制失败
+1624	add version fail	添加版本失败
+1603	app count limit	用户app数量已超限
+1636	user is not exist	用户不存在
+1637	
+user has bind app role
+用户角色已存在
+1623	zip file not found	程序包不存在
+1620	set current version fail	设置当前版本失败
+1604	app deploy fail	部署app失败
+1605	app restart fail	重启app失败
+1610	restart instance fail	重启实例失败
+============================================================================================	 	 
+ 	 	 
+ 	 	 
+ 	 	 
+ 	 	 

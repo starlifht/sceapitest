@@ -772,5 +772,412 @@ public class ConsoleTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	}
-
+	@Test
+	public void getAllAuthUsers() {
+		try {
+			Map<String,String> data =new HashMap<String ,String>();
+			data.put("appid", Params.APPID);
+//			data.put("rate", "");	
+//			data.put("time_unit", "");	
+			String response= HttpClientUtil
+					.doGet(Params.DOMAIN+"/apps/auth/info",data);
+			System.out.print(response);
+			if(!JSONObject.fromObject(response).getString("status").equals("1200")){
+				fail(response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	}
+	@Test
+	public void switchOwner() {
+		try {
+			Map<String,String> data =new HashMap<String ,String>();
+			data.put("appid", Params.APPID);
+			data.put("userid", "");	
+//			data.put("time_unit", "");	
+			String response= HttpClientUtil
+					.doPost(Params.DOMAIN+"/appctl/owner/switch",data);
+			System.out.print(response);
+			if(!JSONObject.fromObject(response).getString("status").equals("1200")){
+				fail(response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	}
+	@Test
+	public void addRole() {
+		try {
+			Map<String,String> data =new HashMap<String ,String>();
+			data.put("appid", Params.APPID);
+			data.put("userid", "");	
+			data.put("role", "");	
+			String response= HttpClientUtil
+					.doPost(Params.DOMAIN+"/appctl/role/add",data);
+			System.out.print(response);
+			if(!JSONObject.fromObject(response).getString("status").equals("1200")){
+				fail(response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	}
+	@Test
+	public void switchRole() {
+		try {
+			Map<String,String> data =new HashMap<String ,String>();
+			data.put("appid", Params.APPID);
+			data.put("userid", "");	
+			data.put("role", "");	
+			String response= HttpClientUtil
+					.doPost(Params.DOMAIN+"/appctl/role/switch",data);
+			System.out.print(response);
+			if(!JSONObject.fromObject(response).getString("status").equals("1200")){
+				fail(response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	}
+	@Test
+	public void deleteRole() {
+		try {
+			Map<String,String> data =new HashMap<String ,String>();
+			data.put("appid", Params.APPID);
+			data.put("userid", "");	
+			//data.put("role", "");	
+			String response= HttpClientUtil
+					.doPost(Params.DOMAIN+"/appctl/role/delete",data);
+			System.out.print(response);
+			if(!JSONObject.fromObject(response).getString("status").equals("1200")){
+				fail(response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	}
+	@Test
+	public void getBindServiceInfo() {
+		try {
+			Map<String,String> data =new HashMap<String ,String>();
+			data.put("appid", Params.APPID);
+			//data.put("userid", "");	
+			//data.put("role", "");	
+			String response= HttpClientUtil
+					.doGet(Params.DOMAIN+"/apps/service/info",data);
+			System.out.print(response);
+			if(!JSONObject.fromObject(response).getString("status").equals("1200")){
+				fail(response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	}
+	@Test
+	public void addBindService() {
+		try {
+			Map<String,String> data =new HashMap<String ,String>();
+			data.put("appid", Params.APPID);
+			data.put("service_names", "");	
+			//data.put("role", "");	
+			String response= HttpClientUtil
+					.doPost(Params.DOMAIN+"/appctl/service/binds/add",data);
+			System.out.print(response);
+			if(!JSONObject.fromObject(response).getString("status").equals("1200")){
+				fail(response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	}
+	@Test
+	public void delBindService() {
+		try {
+			Map<String,String> data =new HashMap<String ,String>();
+			data.put("appid", Params.APPID);
+			data.put("service_names", "");	
+			//data.put("role", "");	
+			String response= HttpClientUtil
+					.doPost(Params.DOMAIN+"/appctl/service/binds/delete",data);
+			System.out.print(response);
+			if(!JSONObject.fromObject(response).getString("status").equals("1200")){
+				fail(response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	}
+	@Test
+	public void getMemcacheInfo() {
+		try {
+			Map<String,String> data =new HashMap<String ,String>();
+			data.put("appid", Params.APPID);
+			data.put("service_names", "");	
+			//data.put("role", "");	
+			String response= HttpClientUtil
+					.doGet(Params.DOMAIN+"/services/system/memcache");
+			System.out.print(response);
+			if(!JSONObject.fromObject(response).getString("status").equals("1200")){
+				fail(response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	}
+	@Test
+	public void addMemcache() {
+		try {
+			Map<String,String> data =new HashMap<String ,String>();
+			data.put("quota", "");
+			data.put("info", "");	
+			//data.put("role", "");	
+			String response= HttpClientUtil
+					.doPost(Params.DOMAIN+"/services_op/system/memcache/add",data);
+			System.out.print(response);
+			if(!JSONObject.fromObject(response).getString("status").equals("1200")){
+				fail(response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	}
+	@Test
+	public void setMemcache() {
+		try {
+			Map<String,String> data =new HashMap<String ,String>();
+			data.put("quota", "");
+			data.put("info", "");	
+			data.put("instance_id", "");	
+			String response= HttpClientUtil
+					.doPost(Params.DOMAIN+"/services_op/system/memcache/set",data);
+			System.out.print(response);
+			if(!JSONObject.fromObject(response).getString("status").equals("1200")){
+				fail(response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	}
+	@Test
+	public void delMemcache() {
+		try {
+			Map<String,String> data =new HashMap<String ,String>();
+//			data.put("quota", "");
+//			data.put("info", "");	
+			data.put("instance_id", "");	
+			String response= HttpClientUtil
+					.doPost(Params.DOMAIN+"/services_op/system/memcache/delete",data);
+			System.out.print(response);
+			if(!JSONObject.fromObject(response).getString("status").equals("1200")){
+				fail(response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}}
+	@Test
+	public void getRedisInfo() {
+		try {
+			Map<String,String> data =new HashMap<String ,String>();
+			data.put("appid", Params.APPID);
+			data.put("service_names", "");	
+			//data.put("role", "");	
+			String response= HttpClientUtil
+					.doGet(Params.DOMAIN+"/services/system/redis");
+			System.out.print(response);
+			if(!JSONObject.fromObject(response).getString("status").equals("1200")){
+				fail(response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	}
+	@Test
+	public void addRedis() {
+		try {
+			Map<String,String> data =new HashMap<String ,String>();
+			data.put("quota", "");
+			data.put("info", "");	
+			//data.put("role", "");	
+			String response= HttpClientUtil
+					.doPost(Params.DOMAIN+"/services_op/system/redis/add",data);
+			System.out.print(response);
+			if(!JSONObject.fromObject(response).getString("status").equals("1200")){
+				fail(response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	}
+	@Test
+	public void setRedis() {
+		try {
+			Map<String,String> data =new HashMap<String ,String>();
+			data.put("quota", "");
+			data.put("info", "");	
+			data.put("instance_id", "");	
+			String response= HttpClientUtil
+					.doPost(Params.DOMAIN+"/services_op/system/redis/set",data);
+			System.out.print(response);
+			if(!JSONObject.fromObject(response).getString("status").equals("1200")){
+				fail(response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	}
+	@Test
+	public void delRedis() {
+		try {
+			Map<String,String> data =new HashMap<String ,String>();
+//			data.put("quota", "");
+//			data.put("info", "");	
+			data.put("instance_id", "");	
+			String response= HttpClientUtil
+					.doPost(Params.DOMAIN+"/services_op/system/redis/delete",data);
+			System.out.print(response);
+			if(!JSONObject.fromObject(response).getString("status").equals("1200")){
+				fail(response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}}
+	@Test
+	public void getDBInfo() {
+		try {
+			Map<String,String> data =new HashMap<String ,String>();
+			data.put("appid", Params.APPID);
+			data.put("service_names", "");	
+			//data.put("role", "");	
+			String response= HttpClientUtil
+					.doGet(Params.DOMAIN+"/services/system/db");
+			System.out.print(response);
+			if(!JSONObject.fromObject(response).getString("status").equals("1200")){
+				fail(response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	}
+	@Test
+	public void addDB() {
+		try {
+			Map<String,String> data =new HashMap<String ,String>();
+			data.put("quota", "");
+			data.put("info", "");	
+			//data.put("role", "");	
+			String response= HttpClientUtil
+					.doPost(Params.DOMAIN+"/services_op/system/db/add",data);
+			System.out.print(response);
+			if(!JSONObject.fromObject(response).getString("status").equals("1200")){
+				fail(response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	}
+	@Test
+	public void setDB() {
+		try {
+			Map<String,String> data =new HashMap<String ,String>();
+			data.put("quota", "");
+			data.put("info", "");	
+			data.put("instance_id", "");	
+			String response= HttpClientUtil
+					.doPost(Params.DOMAIN+"/services_op/system/db/set",data);
+			System.out.print(response);
+			if(!JSONObject.fromObject(response).getString("status").equals("1200")){
+				fail(response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	}
+	@Test
+	public void delDB() {
+		try {
+			Map<String,String> data =new HashMap<String ,String>();
+//			data.put("quota", "");
+//			data.put("info", "");	
+			data.put("instance_id", "");	
+			String response= HttpClientUtil
+					.doPost(Params.DOMAIN+"/services_op/system/db/delete",data);
+			System.out.print(response);
+			if(!JSONObject.fromObject(response).getString("status").equals("1200")){
+				fail(response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}}
+	@Test
+	public void getStorgeInfo() {
+		try {
+			Map<String,String> data =new HashMap<String ,String>();
+			data.put("appid", Params.APPID);
+			data.put("service_names", "");	
+			//data.put("role", "");	
+			String response= HttpClientUtil
+					.doGet(Params.DOMAIN+"/services/system/storage");
+			System.out.print(response);
+			if(!JSONObject.fromObject(response).getString("status").equals("1200")){
+				fail(response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	}
+	@Test
+	public void addStorge() {
+		try {
+			Map<String,String> data =new HashMap<String ,String>();
+			data.put("quota", "");
+			data.put("info", "");	
+			//data.put("role", "");	
+			String response= HttpClientUtil
+					.doPost(Params.DOMAIN+"/services_op/system/storage/add",data);
+			System.out.print(response);
+			if(!JSONObject.fromObject(response).getString("status").equals("1200")){
+				fail(response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	}
+	@Test
+	public void setStorge() {
+		try {
+			Map<String,String> data =new HashMap<String ,String>();
+			data.put("quota", "");
+			data.put("info", "");	
+			data.put("instance_id", "");	
+			String response= HttpClientUtil
+					.doPost(Params.DOMAIN+"/services_op/system/storage/set",data);
+			System.out.print(response);
+			if(!JSONObject.fromObject(response).getString("status").equals("1200")){
+				fail(response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	}
+	@Test
+	public void delStorge() {
+		try {
+			Map<String,String> data =new HashMap<String ,String>();
+//			data.put("quota", "");
+//			data.put("info", "");	
+			data.put("instance_id", "");	
+			String response= HttpClientUtil
+					.doPost(Params.DOMAIN+"/services_op/system/storage/delete",data);
+			System.out.print(response);
+			if(!JSONObject.fromObject(response).getString("status").equals("1200")){
+				fail(response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}}
 }
