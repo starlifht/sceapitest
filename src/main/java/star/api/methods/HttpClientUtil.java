@@ -210,18 +210,18 @@ public static String doDelete(String url) throws Exception {
 	public static String doPostFile(String url,String filePath) throws Exception{
 		 HttpClient httpclient = new DefaultHttpClient();  
 	        //请求处理页面  
-	        HttpPost httppost = new HttpPost(  
+	        HttpPut httppost = new HttpPut(  
 	                url);  
 	        //创建待处理的文件  
 	       // FileBody file = new FileBody(new File("d:/22.rar"));  
-	      //  httppost.addHeader("Content-Type","application/octet-stream; charset=" + DEFAULT_CHARSET);
+	       httppost.addHeader("Content-Type","application/octet-stream; charset=" + DEFAULT_CHARSET);
 	        FileBody file = new FileBody(new File(filePath));  
 	        //创建待处理的表单域内容文本  
 	        StringBody version = new StringBody("1");  	  
 	        //对请求的表单域进行填充  
 	        MultipartEntity reqEntity = new MultipartEntity();  
 	        reqEntity.addPart("file", file);  
-	        reqEntity.addPart("object_name", version);  
+	        reqEntity.addPart("version", version);  
 	        //设置请求  
 	        httppost.setEntity(reqEntity);  
 	        //执行  

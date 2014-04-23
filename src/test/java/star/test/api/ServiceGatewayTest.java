@@ -12,13 +12,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import star.api.methods.HttpClientUtil;
+import star.test.methods.Params;
 
 public class ServiceGatewayTest {
-	public static final String  DOMAIN="http://sohutest.apps.sohuno.com";
-		//public static final String  DOMAIN="http://localhost/SCE_openAPI";
-		//public static final String  ACCESS_TOKEN="97043a103dfa54b2344b741300459a8e";//测试
-		public static final String  ACCESS_TOKEN="bb4028f1240acd48938ce8967a77c134";//线上
-		private static final String APPID="93695";
+	public static final String  DOMAIN=Params.DOMAIN; //  sohutest.apps.sohuno.com
+	//public static final String  DOMAIN="http://sohutest.apps.sohuno.com";
+	//public static final String  DOMAIN="http://openapi-test.apps.sohuno.com";
+	public static final String  ACCESS_TOKEN=Params.ACCESS_TOKEN;//测试
+	//public static final String  ACCESS_TOKEN="97043a103dfa54b2344b741300459a8e";//线上
+	public static final String APPID=Params.APPID;
 		private static final String SERV_INSTANCEID="1";
 	public ServiceGatewayTest() {
 	}
@@ -157,10 +159,10 @@ public class ServiceGatewayTest {
 	public void addServProvider() {//增加服务实例
 		try {
 			Map<String,String> data =new HashMap<String ,String>();
-			//data.put("access_token", ACCESS_TOKEN);
-			data.put("name","test65");
+			data.put("access_token", ACCESS_TOKEN);
+			data.put("name","t3est65");
 			data.put("type","mysql-dba");
-			data.put("owner","star");
+			data.put("owner","starlifht");
 			data.put("endpoint","http://www.sohu.com");		
 			//data.put("description","just test");
 			//System.out.println(RandomStringUtils.random(6));
