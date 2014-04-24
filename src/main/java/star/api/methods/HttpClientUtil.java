@@ -51,7 +51,7 @@ public class HttpClientUtil {
 	public static String doGet(String url,Map<String,String> paramMap) throws Exception {
 		
 		 String paramStr = prepareParam(paramMap);
-		HttpGet httpGet = new HttpGet(url+"?"+paramStr);
+		HttpGet httpGet = new HttpGet(url+"&"+paramStr);
 		
 		httpGet.addHeader("Content-Type",
 				"application/x-www-form-urlencoded; charset=" + DEFAULT_CHARSET);
@@ -210,18 +210,18 @@ public static String doDelete(String url) throws Exception {
 	public static String doPostFile(String url,String filePath) throws Exception{
 		 HttpClient httpclient = new DefaultHttpClient();  
 	        //请求处理页面  
-	        HttpPut httppost = new HttpPut(  
+	        HttpPost httppost = new HttpPost(  
 	                url);  
 	        //创建待处理的文件  
 	       // FileBody file = new FileBody(new File("d:/22.rar"));  
-	       httppost.addHeader("Content-Type","application/octet-stream; charset=" + DEFAULT_CHARSET);
+	      // httppost.addHeader("Content-Type","application/octet-stream; charset=" + DEFAULT_CHARSET);
 	        FileBody file = new FileBody(new File(filePath));  
 	        //创建待处理的表单域内容文本  
-	        StringBody version = new StringBody("1");  	  
+	        StringBody version = new StringBody("star888");  	  
 	        //对请求的表单域进行填充  
 	        MultipartEntity reqEntity = new MultipartEntity();  
 	        reqEntity.addPart("file", file);  
-	        reqEntity.addPart("version", version);  
+	        reqEntity.addPart("object_name", version);  
 	        //设置请求  
 	        httppost.setEntity(reqEntity);  
 	        //执行  

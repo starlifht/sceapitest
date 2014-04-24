@@ -37,7 +37,7 @@ public class ServiceGatewayTest {
 	public void getServInstancesBystatus() {//查询某个（所有）状态的服务实例 pending | running | stopped | deleted
 		try {
 			String response= HttpClientUtil
-					.doGet(DOMAIN+"/services/instances?access_token="+ACCESS_TOKEN+"&status=running");
+					.doGet(DOMAIN+"/services/instances?access_token="+ACCESS_TOKEN+"&status=stopped");
 			
 			if(!JSONObject.fromObject(response).getString("code").equals("1000")){
 				fail(response);
@@ -156,15 +156,15 @@ public class ServiceGatewayTest {
 		}
 }
 	@Test
-	public void addServProvider() {//增加服务实例
+	public void addServProvider() {//增加服务
 		try {
 			Map<String,String> data =new HashMap<String ,String>();
 			data.put("access_token", ACCESS_TOKEN);
-			data.put("name","t3est65");
+			data.put("name","sdfrew");
 			data.put("type","mysql-dba");
 			data.put("owner","starlifht");
 			data.put("endpoint","http://www.sohu.com");		
-			//data.put("description","just test");
+			data.put("description","just test");
 			//System.out.println(RandomStringUtils.random(6));
 			String response= HttpClientUtil.doPut(DOMAIN+"/services?access_token="+ACCESS_TOKEN,data);
 			System.out.print(response);

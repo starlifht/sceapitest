@@ -38,7 +38,7 @@ public class UserTest {
 			Map<String, String> data = new HashMap<String, String>();
 			data.put("userid", "starlifht");
 			data.put("user_type", "1");
-
+			
 			String response = HttpClientUtil.doGet(DOMAIN + "/user/prelogin",
 					data);
 
@@ -425,7 +425,7 @@ public class UserTest {
 	public void userRegister() {// 注册用户
 		try {
 			Map<String, String> data = new HashMap<String, String>();
-			data.put("userid", "tdestusers");
+			data.put("userid", "tde34stusers");
 			data.put("password", "asd123");
 			data.put("mobile", "18810608888");
 			String response = HttpClientUtil.doPost(Params.DOMAIN
