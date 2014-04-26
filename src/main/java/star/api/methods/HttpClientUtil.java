@@ -44,6 +44,8 @@ public class HttpClientUtil {
 	public static String doGet(String url) throws Exception {
 		HttpGet httpGet = new HttpGet(url);
 		
+		httpGet.addHeader("timestamp",
+				String.valueOf(System.currentTimeMillis()));
 		httpGet.addHeader("Content-Type",
 				"application/x-www-form-urlencoded; charset=" + DEFAULT_CHARSET);
 		return sendRequest(httpGet);
@@ -51,10 +53,14 @@ public class HttpClientUtil {
 	public static String doGet(String url,Map<String,String> paramMap) throws Exception {
 		
 		 String paramStr = prepareParam(paramMap);
-		HttpGet httpGet = new HttpGet(url+"&"+paramStr);
-		
-		httpGet.addHeader("Content-Type",
-				"application/x-www-form-urlencoded; charset=" + DEFAULT_CHARSET);
+		 HttpGet httpGet;
+		 if(url.indexOf("?")!=-1){
+		 httpGet = new HttpGet(url+"&"+paramStr);
+		 }else{
+			 httpGet = new HttpGet(url+"?"+paramStr);	 
+		 }
+//		httpGet.addHeader("Content-Type",
+//				"application/x-www-form-urlencoded; charset=" + DEFAULT_CHARSET);
 		return sendRequest(httpGet);
 	}
 //	 public static String doPost(String url, Map<String, String[]> data)
@@ -108,11 +114,14 @@ public class HttpClientUtil {
 		HttpPut.setEntity(requestEntity);
 		HttpPut.addHeader("Content-Type",
 				"application/x-www-form-urlencoded; charset=" + DEFAULT_CHARSET);
-
+		HttpPut.addHeader("timestamp",
+				String.valueOf(System.currentTimeMillis()));
 		return sendRequest(HttpPut);
 	}
 public static String doPost(String url) throws Exception {
 	HttpPost HttpPost = new HttpPost(url);
+	HttpPost.addHeader("timestamp",
+			String.valueOf(System.currentTimeMillis()));
 	HttpPost.addHeader("Content-Type",
 			"application/x-www-form-urlencoded; charset=" + DEFAULT_CHARSET);
 	return sendRequest(HttpPost);
@@ -120,6 +129,7 @@ public static String doPost(String url) throws Exception {
 }
 public static String doPut(String url) throws Exception {
 	HttpPut HttpPut = new HttpPut(url);
+	
 	HttpPut.addHeader("Content-Type",
 			"application/x-www-form-urlencoded; charset=" + DEFAULT_CHARSET);
 	return sendRequest(HttpPut);
@@ -127,6 +137,8 @@ public static String doPut(String url) throws Exception {
 }
 public static String doDelete(String url) throws Exception {
 	HttpDelete HttpDelete = new HttpDelete(url);
+	HttpDelete.addHeader("timestamp",
+			String.valueOf(System.currentTimeMillis()));
 	HttpDelete.addHeader("Content-Type",
 			"application/x-www-form-urlencoded; charset=" + DEFAULT_CHARSET);
 	return sendRequest(HttpDelete);
@@ -160,6 +172,7 @@ public static String doDelete(String url) throws Exception {
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setDoOutput(true);
         conn.setRequestMethod("DELETE");
+        conn.addRequestProperty("timestamp", String.valueOf(System.currentTimeMillis()));
         System.out.println(conn.getResponseCode()+conn.getResponseMessage());
         BufferedReader reader = new BufferedReader(new InputStreamReader(
         		conn.getInputStream()));
@@ -200,6 +213,8 @@ public static String doDelete(String url) throws Exception {
 		// System.out.println(requestEntity.toString());
 		HttpPost httpPost = new HttpPost(url);
 		httpPost.setEntity(requestEntity);
+		httpPost.addHeader("timestamp",
+				String.valueOf(System.currentTimeMillis()));
 		httpPost.addHeader("Content-Type",
 				"application/x-www-form-urlencoded; charset=" + DEFAULT_CHARSET);
 

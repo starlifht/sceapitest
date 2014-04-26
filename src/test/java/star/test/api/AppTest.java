@@ -40,12 +40,12 @@ public class AppTest {
 		try {
 			String response= HttpClientUtil
 					.doGet(Params.DOMAIN+"/apps?access_token="+Params.ACCESS_TOKEN);
-			
+			System.out.print(response);
 			if(!JSONObject.fromObject(response).getString("code").equals("1000")){
 				fail(response);
 			}
 			System.out.print(response);
-		} catch (Exception e) {
+		} catch (Exception e) {fail(e.toString());
 			e.printStackTrace();
 		}}
 		@Test
@@ -58,7 +58,7 @@ public class AppTest {
 					fail(response);
 				}
 				System.out.print(response);
-			} catch (Exception e) {
+			} catch (Exception e) {fail(e.toString());
 				e.printStackTrace();
 			}
 	}
@@ -72,7 +72,7 @@ public class AppTest {
 					fail(response);
 				}
 				System.out.print(response);
-			} catch (Exception e) {
+			} catch (Exception e) {fail(e.toString());
 				e.printStackTrace();
 			}
 	}
@@ -86,7 +86,7 @@ public class AppTest {
 					fail(response);
 				}
 				System.out.print(response);
-			} catch (Exception e) {
+			} catch (Exception e) {fail(e.toString());
 				e.printStackTrace();
 			}
 	}
@@ -100,7 +100,7 @@ public class AppTest {
 					fail(response);
 				}
 				System.out.print(response);
-			} catch (Exception e) {
+			} catch (Exception e) {fail(e.toString());
 				e.printStackTrace();
 			}
 	}
@@ -114,7 +114,7 @@ public class AppTest {
 					fail(response);
 				}
 				System.out.print(response);
-			} catch (Exception e) {
+			} catch (Exception e) {fail(e.toString());
 				e.printStackTrace();
 			}
 	}
@@ -128,7 +128,7 @@ public class AppTest {
 					fail(response);
 				}
 				System.out.print(response);
-			} catch (Exception e) {
+			} catch (Exception e) {fail(e.toString());
 				e.printStackTrace();
 			}
 	}
@@ -145,7 +145,7 @@ public class AppTest {
 					fail(response);
 				}
 				
-			} catch (Exception e) {
+			} catch (Exception e) {fail(e.toString());
 				e.printStackTrace();
 			}
 	}
@@ -162,7 +162,7 @@ public class AppTest {
 					fail(response);
 				}
 				
-			} catch (Exception e) {
+			} catch (Exception e) {fail(e.toString());
 				e.printStackTrace();
 			}
 	}
@@ -177,6 +177,7 @@ public class AppTest {
 				}
 				
 			} catch (Exception e) {
+				fail(e.toString());
 				e.printStackTrace();
 			}
 	}
@@ -195,7 +196,7 @@ public class AppTest {
 					fail(response);
 				}
 				
-			} catch (Exception e) {
+			} catch (Exception e) {fail(e.toString());
 				e.printStackTrace();
 			}
 	}
@@ -213,7 +214,7 @@ public class AppTest {
 					fail(response);
 				}
 				
-			} catch (Exception e) {
+			} catch (Exception e) {fail(e.toString());
 				e.printStackTrace();
 			}
 	}
@@ -231,7 +232,7 @@ public class AppTest {
 					fail(response);
 				}
 				
-			} catch (Exception e) {
+			} catch (Exception e) {fail(e.toString());
 				e.printStackTrace();
 			}
 	}
@@ -249,7 +250,7 @@ public class AppTest {
 					fail(response);
 				}
 				
-			} catch (Exception e) {
+			} catch (Exception e) {fail(e.toString());
 				e.printStackTrace();
 			}
 	}
@@ -266,10 +267,27 @@ public class AppTest {
 					fail(response);
 				}
 				
-			} catch (Exception e) {
+			} catch (Exception e) {fail(e.toString());
 				e.printStackTrace();
 			}
 	}
+		@Test
+		public void stopInstance() {//停止实例
+			try {
+//				Map<String,String> data =new HashMap<String ,String>();
+//				data.put("description", "测试版本dfsd");
+				//System.out.println(RandomStringUtils.random(6));
+				String response= HttpClientUtil
+						.doPost(DOMAIN+"/instances/"+INSTANCEID+"/stop?access_token="+ACCESS_TOKEN);
+				System.out.print(response);
+				if(!JSONObject.fromObject(response).getString("code").equals("1000")){
+					fail(response);
+				}
+				
+			} catch (Exception e) {fail(e.toString());
+				e.printStackTrace();
+			}
+		}
 		
 		@Test
 		public void restartInstance() {//重启实例
@@ -284,24 +302,7 @@ public class AppTest {
 					fail(response);
 				}
 				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		@Test
-		public void stopInstance() {//停止实例
-			try {
-//				Map<String,String> data =new HashMap<String ,String>();
-//				data.put("description", "测试版本dfsd");
-				//System.out.println(RandomStringUtils.random(6));
-				String response= HttpClientUtil
-						.doPost(DOMAIN+"/instances/"+INSTANCEID+"/stop?access_token="+ACCESS_TOKEN);
-				System.out.print(response);
-				if(!JSONObject.fromObject(response).getString("code").equals("1000")){
-					fail(response);
-				}
-				
-			} catch (Exception e) {
+			} catch (Exception e) {fail(e.toString());
 				e.printStackTrace();
 			}
 		}
@@ -319,7 +320,7 @@ public class AppTest {
 					fail(response);
 				}
 				
-			} catch (Exception e) {
+			} catch (Exception e) {fail(e.toString());
 				e.printStackTrace();
 			}
 	}
@@ -336,7 +337,7 @@ public class AppTest {
 					fail(response);
 				}
 				
-			} catch (Exception e) {
+			} catch (Exception e) {fail(e.toString());
 				e.printStackTrace();
 			}
 	}
@@ -353,7 +354,7 @@ public class AppTest {
 					fail(response);
 				}
 				
-			} catch (Exception e) {
+			} catch (Exception e) {fail(e.toString());
 				e.printStackTrace();
 			}
 	}
@@ -370,7 +371,7 @@ public class AppTest {
 					fail(response);
 				}
 				
-			} catch (Exception e) {
+			} catch (Exception e) {fail(e.toString());
 				e.printStackTrace();
 			}
 		}
@@ -387,7 +388,7 @@ public class AppTest {
 					fail(response);
 				}
 				
-			} catch (Exception e) {
+			} catch (Exception e) {fail(e.toString());
 				e.printStackTrace();
 			}
 		}

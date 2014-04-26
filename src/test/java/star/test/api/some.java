@@ -37,10 +37,10 @@ public class some {
 	public void deleteApp() {//删除app
 		try {
 			Map<String,String> data =new HashMap<String ,String>();
-			data.put("name", "YJVe3Mk");
+			data.put("name", "zoD4pXs");
 		System.out.println(Tools.getRandomString(7));
 			String response= HttpClientUtil
-					.doDelete(DOMAIN+"/apps/10211"+"?access_token="+ACCESS_TOKEN,data);
+					.doDelete(DOMAIN+"/apps/10241"+"?access_token="+ACCESS_TOKEN,data);
 			System.out.print(response);
 			if(!JSONObject.fromObject(response).getString("code").equals("1000")){
 				fail(response);

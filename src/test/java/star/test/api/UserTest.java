@@ -32,43 +32,43 @@ public class UserTest {
 	public void tearDown() throws Exception {
 	}
 
-	@Test
-	public void prelogin() {// 获取某个appid的绑定服务实例信息
-		try {
-			Map<String, String> data = new HashMap<String, String>();
-			data.put("userid", "starlifht");
-			data.put("user_type", "1");
-			
-			String response = HttpClientUtil.doGet(DOMAIN + "/user/prelogin",
-					data);
-
-			if (!JSONObject.fromObject(response).getString("code")
-					.equals("1000")) {
-				fail(response);
-			}
-			System.out.print(response);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	@Test
+//	public void prelogin() {// 获取某个appid的绑定服务实例信息
+//		try {
+//			Map<String, String> data = new HashMap<String, String>();
+//			data.put("userid", "starlifht");
+//			data.put("user_type", "1");
+//			
+//			String response = HttpClientUtil.doGet(DOMAIN + "/user/prelogin",
+//					data);
+//
+//			if (!JSONObject.fromObject(response).getString("code")
+//					.equals("1000")) {
+//				fail(response);
+//			}
+//			System.out.print(response);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	@Test
 	public void userlogin() {// 获取某个appid的绑定服务实例信息
 		try {
 
 			Map<String, String> data = new HashMap<String, String>();
-			data.put("userid", "starlifht");
+			data.put("userid", "tseers");
 			data.put("password", "asd123");
 			data.put("dp_password", "false");
 			data.put("user_type", "1");
 			String response = HttpClientUtil.doPost(Params.DOMAIN
 					+ "/user/login", data);
-
+			System.out.print(response);
 			if (!JSONObject.fromObject(response).getString("code")
 					.equals("1000")) {
 				fail(response);
 			}
-			System.out.print(response);
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -77,16 +77,16 @@ public class UserTest {
 	@Test
 	public void userIsExist() {// 用户是否存在
 		try {
-			String userid = "sdfsf33dd";
+			String userid = "starlifht";
 
 			String response = HttpClientUtil.doGet(Params.DOMAIN + "/user/"
 					+ userid + "/is_exist");
-
+			System.out.print(response);
 			if (!JSONObject.fromObject(response).getString("code")
-					.equals("1000")) {
+					.equals("10654")) {
 				fail(response);
 			}
-			System.out.print(response);
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -120,12 +120,12 @@ public class UserTest {
 			data.put("mobile", "18810606513");
 			String response = HttpClientUtil.doGet(Params.DOMAIN
 					+ "/user/verify", data);
-
+			System.out.print(response);
 			if (!JSONObject.fromObject(response).getString("code")
 					.equals("1000")) {
 				fail(response);
 			}
-			System.out.print(response);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -203,14 +203,14 @@ public class UserTest {
 
 		try {
 
-			String response = HttpClientUtil.doPost(Params.DOMAIN
+			String response = HttpClientUtil.doGet(Params.DOMAIN
 					+ "/user/sshkeys?access_token=" + ACCESS_TOKEN);
-
+			System.out.print(response);
 			if (!JSONObject.fromObject(response).getString("code")
 					.equals("1000")) {
 				fail(response);
 			}
-			System.out.print(response);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -221,10 +221,10 @@ public class UserTest {
 
 		try {
 			Map<String, String> data = new HashMap<String, String>();
-			data.put("title", "test");
+			data.put("title", "teswerers");
 
 			// data.put("key", "testusers");
-			String response = HttpClientUtil.doPost(Params.DOMAIN
+			String response = HttpClientUtil.doGet(Params.DOMAIN
 					+ "/user/sshkeys?access_token=" + ACCESS_TOKEN, data);
 
 			if (!JSONObject.fromObject(response).getString("code")
@@ -242,17 +242,17 @@ public class UserTest {
 
 		try {
 			Map<String, String> data = new HashMap<String, String>();
-			data.put("title", "test");
+			data.put("title", "teswerers");
 
 			// data.put("key", "testusers");
 			String response = HttpClientUtil.doDelete(Params.DOMAIN
 					+ "/user/sshkeys?access_token=" + ACCESS_TOKEN, data);
-
+			System.out.print(response);
 			if (!JSONObject.fromObject(response).getString("code")
-					.equals("1000")) {
+					.equals("40003")) {
 				fail(response);
 			}
-			System.out.print(response);
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -263,17 +263,16 @@ public class UserTest {
 
 		try {
 			Map<String, String> data = new HashMap<String, String>();
-			data.put("title", "testusers");
-
-			data.put("key", "testuserssdfsfdsfssfasdfdfsfdsfds");
+			data.put("title", "teswerers");
+			data.put("keys", "testuserssdfsfdsfssfasdfdfsfdsfds");
 			String response = HttpClientUtil.doPost(Params.DOMAIN
 					+ "/user/sshkeys?access_token=" + ACCESS_TOKEN, data);
-
+			System.out.print(response);
 			if (!JSONObject.fromObject(response).getString("code")
 					.equals("1000")) {
 				fail(response);
 			}
-			System.out.print(response);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -311,12 +310,12 @@ public class UserTest {
 			data.put("role", "3");
 			String response = HttpClientUtil.doPost(Params.DOMAIN + "/user/"
 					+ Params.APPID + "?access_token=" + ACCESS_TOKEN, data);
+			System.out.print(response);
 
 			if (!JSONObject.fromObject(response).getString("code")
-					.equals("1000")) {
+					.equals("10658")) {
 				fail(response);
 			}
-			System.out.print(response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -389,12 +388,12 @@ public class UserTest {
 
 			String response = HttpClientUtil.doGet(Params.DOMAIN
 					+ "/user/reminder_config?access_token=" + ACCESS_TOKEN);
+			System.out.print(response);
 
 			if (!JSONObject.fromObject(response).getString("code")
 					.equals("1000")) {
 				fail(response);
 			}
-			System.out.print(response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -410,12 +409,12 @@ public class UserTest {
 			String response = HttpClientUtil.doPut(Params.DOMAIN
 					+ "/user/reminder_config?access_token=" + ACCESS_TOKEN,
 					data);
+			System.out.print(response);
 
 			if (!JSONObject.fromObject(response).getString("code")
 					.equals("1000")) {
 				fail(response);
 			}
-			System.out.print(response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -425,17 +424,17 @@ public class UserTest {
 	public void userRegister() {// 注册用户
 		try {
 			Map<String, String> data = new HashMap<String, String>();
-			data.put("userid", "tde34stusers");
+			data.put("userid", "tseers");
 			data.put("password", "asd123");
-			data.put("mobile", "18810608888");
+			data.put("mobile", "18810608884");
 			String response = HttpClientUtil.doPost(Params.DOMAIN
 					+ "/user/register", data);
-
+			System.out.print(response);
 			if (!JSONObject.fromObject(response).getString("code")
 					.equals("1000")) {
 				fail(response);
 			}
-			System.out.print(response);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -446,16 +445,16 @@ public class UserTest {
 		try {
 			Map<String, String> data = new HashMap<String, String>();
 			data.put("type", "mobile"); //web|email|mobile
-			data.put("dest", "18810606513");
+			data.put("dest", "19810606513");
 			
 			String response = HttpClientUtil.doPost(Params.DOMAIN
 					+ "/user/captcha?access_token=" + ACCESS_TOKEN, data);
-
+			System.out.print(response);
 			if (!JSONObject.fromObject(response).getString("code")
 					.equals("1000")) {
 				fail(response);
 			}
-			System.out.print(response);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
