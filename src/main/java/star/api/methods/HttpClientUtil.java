@@ -1,11 +1,16 @@
 package star.api.methods;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,8 +49,7 @@ public class HttpClientUtil {
 	public static String doGet(String url) throws Exception {
 		HttpGet httpGet = new HttpGet(url);
 		
-		httpGet.addHeader("timestamp",
-				String.valueOf(System.currentTimeMillis()));
+		
 		httpGet.addHeader("Content-Type",
 				"application/x-www-form-urlencoded; charset=" + DEFAULT_CHARSET);
 		return sendRequest(httpGet);
@@ -59,35 +63,11 @@ public class HttpClientUtil {
 		 }else{
 			 httpGet = new HttpGet(url+"?"+paramStr);	 
 		 }
-//		httpGet.addHeader("Content-Type",
-//				"application/x-www-form-urlencoded; charset=" + DEFAULT_CHARSET);
+		httpGet.addHeader("Content-Type",
+				"application/x-www-form-urlencoded; charset=" + DEFAULT_CHARSET);
 		return sendRequest(httpGet);
 	}
-//	 public static String doPost(String url, Map<String, String[]> data)
-//	 throws Exception {
-//	 List<NameValuePair> formparams = new ArrayList<NameValuePair>();
-//	
-//	 for (Entry<String, String[]> entry : data.entrySet()) {
-//	 for (String value : entry.getValue()) {
-//	 if ("".equals(value)) {
-//	 continue;
-//	 }
-//	 formparams.add(new BasicNameValuePair(entry.getKey(), value));
-//	 }
-//	 }
-//	
-//	 UrlEncodedFormEntity requestEntity = null;
-//	
-//	 requestEntity = new UrlEncodedFormEntity(formparams, "UTF-8");
-//	
-//	 // System.out.println(requestEntity.toString());
-//	 HttpPost httpPost = new HttpPost(url);
-//	 httpPost.setEntity(requestEntity);
-//	 httpPost.addHeader("Content-Type",
-//	 "application/x-www-form-urlencoded; charset=" + DEFAULT_CHARSET);
-//	
-//	 return sendRequest(httpPost);
-//	 }
+
 
 	public static String doPut(String url, Map<String, String> data)
 			throws Exception {
@@ -112,16 +92,19 @@ public class HttpClientUtil {
 		HttpPut HttpPut = new HttpPut(url);
 		
 		HttpPut.setEntity(requestEntity);
+	
 		HttpPut.addHeader("Content-Type",
 				"application/x-www-form-urlencoded; charset=" + DEFAULT_CHARSET);
-		HttpPut.addHeader("timestamp",
-				String.valueOf(System.currentTimeMillis()));
+	
 		return sendRequest(HttpPut);
 	}
 public static String doPost(String url) throws Exception {
 	HttpPost HttpPost = new HttpPost(url);
-	HttpPost.addHeader("timestamp",
-			String.valueOf(System.currentTimeMillis()));
+//	HttpPost.addHeader("timestamp",
+//			String.valueOf(System.currentTimeMillis()));
+//	HttpPost.addHeader("access_token","38e455dd16940b39b6aef91536de2554");
+//	HttpPost.addHeader("source","console");
+//	HttpPost.addHeader("client-ip","8.8.8.8");
 	HttpPost.addHeader("Content-Type",
 			"application/x-www-form-urlencoded; charset=" + DEFAULT_CHARSET);
 	return sendRequest(HttpPost);
@@ -129,16 +112,17 @@ public static String doPost(String url) throws Exception {
 }
 public static String doPut(String url) throws Exception {
 	HttpPut HttpPut = new HttpPut(url);
-	
+
 	HttpPut.addHeader("Content-Type",
 			"application/x-www-form-urlencoded; charset=" + DEFAULT_CHARSET);
 	return sendRequest(HttpPut);
 
 }
+
 public static String doDelete(String url) throws Exception {
 	HttpDelete HttpDelete = new HttpDelete(url);
-	HttpDelete.addHeader("timestamp",
-			String.valueOf(System.currentTimeMillis()));
+	
+	
 	HttpDelete.addHeader("Content-Type",
 			"application/x-www-form-urlencoded; charset=" + DEFAULT_CHARSET);
 	return sendRequest(HttpDelete);
@@ -190,7 +174,44 @@ public static String doDelete(String url) throws Exception {
       
 		return result.toString();
     }
+	public static String createXMLURLConnection(String str_url,String filepath) throws Exception {
+	     
+        URL url = new URL(str_url);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();	   
+        con.setDoOutput(true);
+        con.setReadTimeout(5000);
+        con.setConnectTimeout(5000);
+       con.setRequestMethod("POST");
+		con.setDoInput(true);
+		con.setDoOutput(true);
+        con.setRequestProperty("timestamp", String.valueOf(System.currentTimeMillis()));
+        con.setRequestProperty("source", "sonsole");
+       con.setRequestProperty("client-ip", "8.8.8.8");
+//        con.setRequestProperty("Cache-Control", "no-cache");
+//        con.setRequestProperty("Content-Type", "text/xml;charset=GBK");
+        BufferedInputStream in = new BufferedInputStream(new FileInputStream(filepath));
+        BufferedOutputStream  out = new BufferedOutputStream (con.getOutputStream()); 
+      //  byte[] bs = new byte[1024];
+        int len=(int) new File(filepath).length();
+        byte[] bs = new byte[len];
+        in.read(bs, 0, len);
+        out.write(bs);
+//        while ((len = in.read(bs)) != -1) {
+//        	out.write(bs,0,len);
+//        	}
+      
+        out.flush();
+        out.close();
+        BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(),"UTF-8"));
+        String line = "";
+        String response="";
+        for (line = br.readLine(); line != null; line = br.readLine()) {
+          response=response+line;
+        } 
+		return response;
 
+ 
+}
 	public static String doPost(String url, Map<String, String> data)
 			throws Exception {
 		List<NameValuePair> formparams = new ArrayList<NameValuePair>();
@@ -213,8 +234,7 @@ public static String doDelete(String url) throws Exception {
 		// System.out.println(requestEntity.toString());
 		HttpPost httpPost = new HttpPost(url);
 		httpPost.setEntity(requestEntity);
-		httpPost.addHeader("timestamp",
-				String.valueOf(System.currentTimeMillis()));
+	
 		httpPost.addHeader("Content-Type",
 				"application/x-www-form-urlencoded; charset=" + DEFAULT_CHARSET);
 
@@ -230,6 +250,9 @@ public static String doDelete(String url) throws Exception {
 	        //创建待处理的文件  
 	       // FileBody file = new FileBody(new File("d:/22.rar"));  
 	      // httppost.addHeader("Content-Type","application/octet-stream; charset=" + DEFAULT_CHARSET);
+	        httppost.addHeader("client-ip","8.8.8.8");
+	        httppost.addHeader("timestamp",String.valueOf(System.currentTimeMillis()));
+	        httppost.addHeader("source","console");
 	        FileBody file = new FileBody(new File(filePath));  
 	        //创建待处理的表单域内容文本  
 	        StringBody version = new StringBody("star888");  	  
@@ -238,7 +261,8 @@ public static String doDelete(String url) throws Exception {
 	        reqEntity.addPart("file", file);  
 	        reqEntity.addPart("object_name", version);  
 	        //设置请求  
-	        httppost.setEntity(reqEntity);  
+	        httppost.setEntity(reqEntity); 
+	    
 	        //执行  
 	        HttpResponse response = httpclient.execute(httppost);  
 	        //HttpEntity resEntity = response.getEntity();  
@@ -263,7 +287,10 @@ public static String doDelete(String url) throws Exception {
 			throws Exception {
 
 		HttpClient client = new DefaultHttpClient();
-
+		httpUriRequest.addHeader("client-ip","8.8.8.8");
+		httpUriRequest.addHeader("source","console");
+		//httpUriRequest.addHeader("access_token","38e455dd16940b39b6aef91536de2554");
+		httpUriRequest.addHeader("timestamp",String.valueOf(System.currentTimeMillis()));
 		client.getParams().setParameter(
 				CoreConnectionPNames.CONNECTION_TIMEOUT, 5000);
 		client.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 5000);

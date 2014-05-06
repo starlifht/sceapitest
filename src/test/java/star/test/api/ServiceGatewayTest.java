@@ -21,7 +21,7 @@ public class ServiceGatewayTest {
 	public static final String  ACCESS_TOKEN=Params.ACCESS_TOKEN;//测试
 	//public static final String  ACCESS_TOKEN="97043a103dfa54b2344b741300459a8e";//线上
 	public static final String APPID=Params.APPID;
-		private static final String SERV_INSTANCEID="8351337c-52f2-4e43-a513-9d8a3e848b93";
+		private static final String SERV_INSTANCEID="517c1f90-81a1-4387-9131-af49edb71207";
 	public ServiceGatewayTest() {
 	}
 
@@ -60,7 +60,7 @@ public class ServiceGatewayTest {
 			e.printStackTrace();
 		}}
 	@Test
-	public void getTokenOfInstance() {//查询某个id的服务实例
+	public void getTokenOfInstance() {//查询某个服务实例的认证token－目前仅限于mysql
 		try {
 			String response= HttpClientUtil
 					.doGet(DOMAIN+"/services/instances/"+SERV_INSTANCEID+"/token?access_token="+ACCESS_TOKEN);
@@ -103,11 +103,11 @@ public class ServiceGatewayTest {
 		try {
 			String response= HttpClientUtil
 					.doGet(DOMAIN+"/services/instances/binds/"+APPID+"?access_token="+ACCESS_TOKEN);
-			
+			System.out.print(response);
 			if(!JSONObject.fromObject(response).getString("code").equals("1000")){
 				fail(response);
 			}
-			System.out.print(response);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}}
@@ -130,11 +130,11 @@ public class ServiceGatewayTest {
 		try {
 			String response= HttpClientUtil
 					.doPost(DOMAIN+"/services/instances/binds/"+APPID+"/"+SERV_INSTANCEID+"?access_token="+ACCESS_TOKEN);
-			
+			System.out.print(response);
 			if(!JSONObject.fromObject(response).getString("code").equals("1000")){
 				fail(response);
 			}
-			System.out.print(response);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}}
@@ -144,11 +144,11 @@ public class ServiceGatewayTest {
 		try {
 			String response= HttpClientUtil
 					.doDelete(DOMAIN+"/services/instances/binds/"+APPID+"/"+SERV_INSTANCEID+"?access_token="+ACCESS_TOKEN);
-			
+			System.out.print(response);
 			if(!JSONObject.fromObject(response).getString("code").equals("1000")){
 				fail(response);
 			}
-			System.out.print(response);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}}
@@ -168,15 +168,15 @@ public class ServiceGatewayTest {
 		}
 }
 	@Test
-	public void addServProvider() {//增加服务
+	public void addServProvider() {//发布系统服务provider
 		try {
 			Map<String,String> data =new HashMap<String ,String>();
 			//data.put("access_token", ACCESS_TOKEN);
-			data.put("name","sdfrew");
+			data.put("name","testm");
 			data.put("type","mysql-dba");
 			data.put("owner","starlifht");
-			data.put("endpoint","http://www.sohu.com");		
-			data.put("description","just test");
+			data.put("endpoint","/db/service_instance/nodes");		
+			data.put("description","justtest");
 			//System.out.println(RandomStringUtils.random(6));
 			String response= HttpClientUtil.doPut(DOMAIN+"/services?access_token="+ACCESS_TOKEN,data);
 			System.out.print(response);
@@ -194,7 +194,7 @@ public class ServiceGatewayTest {
 //			Map<String,String> data =new HashMap<String ,String>();
 //			data.put("service_id","1");
 			//System.out.println(RandomStringUtils.random(6));
-			String response= HttpClientUtil.doDelete(DOMAIN+"/services/instances/c55bcc60-492e-45e5-a7e7-63613e90a4f8?access_token="+ACCESS_TOKEN);
+			String response= HttpClientUtil.doDelete(DOMAIN+"/services/instances/c1b2c5f5-aab2-451e-96f6-f8f169ba78b7?access_token="+ACCESS_TOKEN);
 			System.out.print(response);
 			if(!JSONObject.fromObject(response).getString("code").equals("1000")){
 				fail(response);

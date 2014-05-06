@@ -44,7 +44,7 @@ public class AppTest {
 			if(!JSONObject.fromObject(response).getString("code").equals("1000")){
 				fail(response);
 			}
-			System.out.print(response);
+
 		} catch (Exception e) {fail(e.toString());
 			e.printStackTrace();
 		}}
@@ -53,11 +53,46 @@ public class AppTest {
 			try {
 				String response= HttpClientUtil
 						.doGet(Params.DOMAIN+"/apps/"+Params.APPID+"?access_token="+Params.ACCESS_TOKEN);
-				
+				System.out.print(response);
 				if(!JSONObject.fromObject(response).getString("code").equals("1000")){
 					fail(response);
 				}
+				
+			} catch (Exception e) {fail(e.toString());
+				e.printStackTrace();
+			}
+	}
+		@Test
+		public void getConfig() {//获取app的详细信息
+			try {
+				String response= HttpClientUtil
+						.doGet(Params.DOMAIN+"/apps/"+Params.APPID+"/config?access_token="+Params.ACCESS_TOKEN);
 				System.out.print(response);
+				if(!JSONObject.fromObject(response).getString("code").equals("1000")){
+					fail(response);
+				}
+				
+			} catch (Exception e) {fail(e.toString());
+				e.printStackTrace();
+			}
+	}
+		@Test
+		public void setConfig() {//获取app的详细信息
+			try {
+				Map<String,String> data =new HashMap<String ,String>();
+				data.put("requests", "8888");
+				data.put("min_ins","11");
+				data.put("max_ins","11");
+				data.put("is_schedule","true");
+				data.put("is_session","true");
+				data.put("container_type","C3");
+				String response= HttpClientUtil
+						.doPut(Params.DOMAIN+"/apps/"+Params.APPID+"/config?access_token="+Params.ACCESS_TOKEN,data);
+				System.out.print(response);
+				if(!JSONObject.fromObject(response).getString("code").equals("1000")){
+					fail(response);
+				}
+				
 			} catch (Exception e) {fail(e.toString());
 				e.printStackTrace();
 			}
@@ -66,12 +101,12 @@ public class AppTest {
 		public void getAppDomains() {//获取app的详细信息
 			try {
 				String response= HttpClientUtil
-						.doGet(Params.DOMAIN+"/apps/"+Params.APPID+"/domains?access_token="+Params.ACCESS_TOKEN);
-				
+						.doPut(Params.DOMAIN+"/apps/"+Params.APPID+"/domains?access_token="+Params.ACCESS_TOKEN);
+				System.out.print(response);
 				if(!JSONObject.fromObject(response).getString("code").equals("1000")){
 					fail(response);
 				}
-				System.out.print(response);
+				
 			} catch (Exception e) {fail(e.toString());
 				e.printStackTrace();
 			}
@@ -81,11 +116,11 @@ public class AppTest {
 			try {
 				String response= HttpClientUtil
 						.doGet(Params.DOMAIN+"/apps/"+Params.APPID+"/versions/abtest?access_token="+Params.ACCESS_TOKEN);
-				
+				System.out.print(response);
 				if(!JSONObject.fromObject(response).getString("code").equals("1000")){
 					fail(response);
 				}
-				System.out.print(response);
+				
 			} catch (Exception e) {fail(e.toString());
 				e.printStackTrace();
 			}
@@ -95,11 +130,11 @@ public class AppTest {
 			try {
 				String response= HttpClientUtil
 						.doGet(Params.DOMAIN+"/apps/"+Params.APPID+"/versions?access_token="+Params.ACCESS_TOKEN);
-				
+				System.out.print(response);
 				if(!JSONObject.fromObject(response).getString("code").equals("1000")){
 					fail(response);
 				}
-				System.out.print(response);
+			
 			} catch (Exception e) {fail(e.toString());
 				e.printStackTrace();
 			}
@@ -109,11 +144,11 @@ public class AppTest {
 			try {
 				String response= HttpClientUtil
 						.doGet(Params.DOMAIN+"/apps/"+Params.APPID+"/instances?access_token="+Params.ACCESS_TOKEN);
-				
+				System.out.print(response);
 				if(!JSONObject.fromObject(response).getString("code").equals("1000")){
 					fail(response);
 				}
-				System.out.print(response);
+				
 			} catch (Exception e) {fail(e.toString());
 				e.printStackTrace();
 			}
@@ -123,11 +158,11 @@ public class AppTest {
 			try {
 				String response= HttpClientUtil
 						.doPost(Params.DOMAIN+"/apps/"+Params.APPID+"/dumpstack?access_token="+Params.ACCESS_TOKEN);
-				
+				System.out.print(response);
 				if(!JSONObject.fromObject(response).getString("code").equals("1000")){
 					fail(response);
 				}
-				System.out.print(response);
+			
 			} catch (Exception e) {fail(e.toString());
 				e.printStackTrace();
 			}
@@ -170,7 +205,8 @@ public class AppTest {
 		public void deployApp() {//修改APP信息
 			try {
 			String filePath=HttpClientUtil.class.getResource("/10207.zip").getPath();
-				String response= HttpClientUtil.doPostFile(DOMAIN+"/apps/"+APPID+"/deploy?access_token="+ACCESS_TOKEN,filePath);
+			System.out.print(filePath);
+				String response= HttpClientUtil.createXMLURLConnection(DOMAIN+"/apps/"+APPID+"/deploy?access_token="+ACCESS_TOKEN,filePath);
 				System.out.print(response);
 				if(!JSONObject.fromObject(response).getString("code").equals("1000")){
 					fail(response);
@@ -197,6 +233,7 @@ public class AppTest {
 				}
 				
 			} catch (Exception e) {fail(e.toString());
+			fail(e.toString());
 				e.printStackTrace();
 			}
 	}
@@ -222,11 +259,11 @@ public class AppTest {
 		public void setCurrent_version() {//修改当前版本
 			try {
 				Map<String,String> data =new HashMap<String,String>();
-				data.put("version","2");
+				data.put("version","1");
 				//data.put("description","test测试");
-				//System.out.println(RandomStringUtils.random(6));
+				String version="2";
 				String response= HttpClientUtil
-						.doPut(DOMAIN+"/apps/"+APPID+"/current_version?access_token="+ACCESS_TOKEN,data);
+						.doPost(DOMAIN+"/apps/"+APPID+"/versions/"+version+"?access_token="+ACCESS_TOKEN);
 				System.out.print(response);
 				if(!JSONObject.fromObject(response).getString("code").equals("1000")){
 					fail(response);
@@ -358,23 +395,7 @@ public class AppTest {
 				e.printStackTrace();
 			}
 	}
-		@Test
-		public void stopApp() {//停止app
-			try {
-//				Map<String,String> data =new HashMap<String ,String>();
-//				data.put("description", "测试版本dfsd");
-				//System.out.println(RandomStringUtils.random(6));
-				String response= HttpClientUtil
-						.doPost(DOMAIN+"/apps/"+APPID+"/stop?access_token="+ACCESS_TOKEN);
-				System.out.print(response);
-				if(!JSONObject.fromObject(response).getString("code").equals("1000")){
-					fail(response);
-				}
-				
-			} catch (Exception e) {fail(e.toString());
-				e.printStackTrace();
-			}
-		}
+		
 		@Test
 		public void restartApp() {//增加APP的版本
 			try {
