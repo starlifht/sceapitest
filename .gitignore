@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.class
 
 # Package Files #
@@ -7,3 +8,10 @@
 
 #file#
 target/
+=======
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.next
+release.properties
+>>>>>>> c4ef3b2914a7dec1c61a79b916416318ebf0d8dc

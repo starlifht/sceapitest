@@ -243,7 +243,6 @@ public class UserTest {
 		try {
 			Map<String, String> data = new HashMap<String, String>();
 			data.put("userid", "starwang1");
-
 			data.put("password", "testusers");
 			String response = HttpClientUtil.doPut(Params.DOMAIN
 					+ "/user/change_password?access_token=" + ACCESS_TOKEN,

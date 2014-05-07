@@ -238,11 +238,11 @@ public class AppTest {
 			}
 	}
 		@Test
-		public void modifyAppAbtestStatus() {//修改APP灰度发布状态   true  false
+		public void setAppAbtestStatus() {//修改APP灰度发布状态   true  false
 			try {
 				Map<String,String> data =new HashMap<String,String>();
 				data.put("is_abtest","false");
-				//data.put("description","test测试");
+				data.put("version","1");
 				//System.out.println(RandomStringUtils.random(6));
 				String response= HttpClientUtil
 						.doPut(DOMAIN+"/apps/"+APPID+"/versions/abtest?access_token="+ACCESS_TOKEN,data);
@@ -361,23 +361,7 @@ public class AppTest {
 				e.printStackTrace();
 			}
 	}
-		@Test
-		public void deleteAppVersion() {//删除app的版本
-			try {
-				Map<String,String> data =new HashMap<String ,String>();
-				data.put("version", "4");
-			
-				String response= HttpClientUtil
-						.doDelete(DOMAIN+"/apps/"+APPID+"/versions?access_token="+ACCESS_TOKEN,data);
-				System.out.print(response);
-				if(!JSONObject.fromObject(response).getString("code").equals("1000")){
-					fail(response);
-				}
-				
-			} catch (Exception e) {fail(e.toString());
-				e.printStackTrace();
-			}
-	}
+		
 		
 		@Test
 		public void cleanAppDomains() {//删除域名
