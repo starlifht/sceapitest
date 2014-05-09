@@ -26,8 +26,8 @@ import star.test.methods.Params;
 
 
 public class ApiTest {
-	 String domain = "http://api.sce.sohu.com";
-
+	 //String domain = "http://api.sce.sohu.com";
+String domain ="http://10.121.41.106:8080";
 		String signatureMethod = "HmacSHA1";
 		String charset = "UTF-8";
 		String appid = "146954184";
@@ -161,6 +161,7 @@ public class ApiTest {
 	public void getAppList() {
 		String uri = "/cs/apps";
 		//data.put("domain", new String[] { "hly*.csapps.sohuno.com" });
+		//for(int i = 0;i<=1;i++){
 		try {
 
 			String sigature = SignatureUtils.signatureForSce(data, secret, "GET", uri, signatureMethod);
@@ -173,7 +174,7 @@ public class ApiTest {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}//}
 	}
 	@Test
 	public void getAppInstances() {

@@ -20,8 +20,8 @@ public class UserTest {
 	// public static final String
 	// ACCESS_TOKEN="97043a103dfa54b2344b741300459a8e";//测试
 	public static final String ACCESS_TOKEN = Params.ACCESS_TOKEN;// 线上
-	public static final String userID="";
-	public static final String captcha="";
+	public static final String userID="starwang1";
+	public static final String captcha="682376";
 	public UserTest() {
 	}
 
@@ -58,7 +58,7 @@ public class UserTest {
 		try {
 
 			Map<String, String> data = new HashMap<String, String>();
-			data.put("userid", "starwang2");
+			data.put("userid", "starwang99");
 			data.put("password", "asd123");
 			data.put("dp_password", "false");
 			data.put("user_type", "1");
@@ -179,12 +179,11 @@ public class UserTest {
 	public void getSSHkeysBytitle() {// 获取 某一SSH key
 
 		try {
-			Map<String, String> data = new HashMap<String, String>();
-			data.put("title", "sdfafda");
-
+			
+			String title ="test44";
 			// data.put("key", "testusers");
 			String response = HttpClientUtil.doGet(Params.DOMAIN
-					+ "/user/sshkeys?access_token=" + ACCESS_TOKEN, data);
+					+ "/user/sshkeys/"+title+"?access_token=" + ACCESS_TOKEN);
 
 			if (!JSONObject.fromObject(response).getString("code")
 					.equals("1000")) {
@@ -263,7 +262,7 @@ public class UserTest {
 
 		try {
 			Map<String, String> data = new HashMap<String, String>();
-			data.put("userid", "km_moon22");
+			data.put("userid", "starwang88");
 			// 1.owner（表示该app转移了创建人） 2.admin 3.user
 			data.put("role", "3");
 			String response = HttpClientUtil.doPost(Params.DOMAIN + "/user/"
@@ -382,9 +381,9 @@ public class UserTest {
 	public void userRegister() {// 注册用户
 		try {
 			Map<String, String> data = new HashMap<String, String>();
-			data.put("userid", "starwang2");
+			data.put("userid", "starwang88");
 			data.put("password", "asd123");
-			data.put("mobile", "18810608711");
+			data.put("mobile", "18899998888");
 		//	data.put("client-ip", "8.8.8.8");
 			String response = HttpClientUtil.doPost(Params.DOMAIN
 					+ "/user/register", data);
@@ -400,11 +399,23 @@ public class UserTest {
 
 	}
 	@Test
-	public void sendCaptcha() {// 发验证码
+	public void sendCaptcha() {// 发验证码101	注册	 
+		/**102	登录	 
+		103	绑定手机	 
+		104	找回密码	 
+		105	修改密码	 
+		106	第一次设置动态口令	 
+		107	关闭动态口令	 
+		108	开启动态口令	 
+		109	查看动态口令密钥	 
+		110	删除app确认	 
+		111	停止app确认	 	 	 	 
+		201	绑定邮箱	 
+		202	邮箱找回密码**/
 		try {
 			Map<String, String> data = new HashMap<String, String>();
 			data.put("type", "mobile"); //web|email|mobile
-			data.put("dest", "18810606518");
+			data.put("dest", "18899998888");
 			data.put("template", "106");
 			String response = HttpClientUtil.doPost(Params.DOMAIN
 					+ "/user/captcha?access_token=" + ACCESS_TOKEN, data);
@@ -444,17 +455,17 @@ public class UserTest {
 	public void userLoginConfirm() {// 动态口令二次验证接口，该方法只在用户绑定了动态口令时需要二次验证使用。
 		try {
 			Map<String, String> data = new HashMap<String, String>();
-			data.put("userid", "starlifht");
-			data.put("captcha", "asd1dsfs23sdf23");
-
+			data.put("userid", "starwang1");
+			data.put("captcha", "445723");
+			
 			String response = HttpClientUtil.doPost(Params.DOMAIN
 					+ "/user/login_confirm", data);
-
+			System.out.print(response);
 			if (!JSONObject.fromObject(response).getString("code")
 					.equals("1000")) {
 				fail(response);
 			}
-			System.out.print(response);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -466,7 +477,7 @@ public class UserTest {
 			
 
 			String response = HttpClientUtil.doPost(Params.DOMAIN
-					+  "/user/"+userID+"dynamic_password/"+captcha+"?access_token=" + ACCESS_TOKEN);
+					+  "/user/"+userID+"/dynamic_password/"+captcha+"?access_token=" + ACCESS_TOKEN);
 			System.out.print(response);
 			if (!JSONObject.fromObject(response).getString("code")
 					.equals("1000")) {
@@ -482,12 +493,12 @@ public class UserTest {
 	public void creatDynamicpassword() {// 创建动态口令。
 		try {
 		
-
+			String googleCaptcha="886646";
 			String response = HttpClientUtil.doPut(Params.DOMAIN
-					+  "/user/"+userID+"dynamic_password/"+captcha+"?access_token=" + ACCESS_TOKEN);
+					+  "/user/"+userID+"/dynamic_password/"+googleCaptcha+"?access_token=" + ACCESS_TOKEN);
 			System.out.print(response);
 			if (!JSONObject.fromObject(response).getString("code")
-					.equals("1000")) {
+					.equals("10662")) {
 				fail(response);
 			}
 	
@@ -502,7 +513,7 @@ public class UserTest {
 			
 
 			String response = HttpClientUtil.doGet(Params.DOMAIN
-					+  "/user/"+userID+"dynamic_password/"+captcha+"?access_token=" + ACCESS_TOKEN);
+					+  "/user/"+userID+"/dynamic_password/"+captcha+"?access_token=" + ACCESS_TOKEN);
 			System.out.print(response);
 			if (!JSONObject.fromObject(response).getString("code")
 					.equals("1000")) {
@@ -515,11 +526,30 @@ public class UserTest {
 
 	}
 	@Test
-	public void deleteDynamicpassword() {// 获取动态口令。
+	public void modifyDynamicpassword() {// 修改动态口令状态。
 		try {
-			
+			String captcha="948289";
+			String status="0";//0:设置成初始化状态；2.解绑
 			String response = HttpClientUtil.doDelete(Params.DOMAIN
-					+ "/user/"+userID+"dynamic_password/"+captcha+"?access_token=" + ACCESS_TOKEN);
+					+  "/user/"+userID+"/dynamic_password/"+captcha+"?access_token=" + ACCESS_TOKEN+"&status="+status);
+			System.out.print(response);
+			if (!JSONObject.fromObject(response).getString("code")
+					.equals("10661")) {
+				fail(response);
+			}
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	@Test
+	public void deleteDynamicpassword() {// 解绑动态口令。
+		try {
+			String userid="km_moon33";
+			String mobileCaptcha="384332";
+			String response = HttpClientUtil.doDelete(Params.DOMAIN
+					+ "/user/"+userid+"/dynamic_password/"+mobileCaptcha+"?access_token=" + ACCESS_TOKEN);
 			System.out.print(response);
 			if (!JSONObject.fromObject(response).getString("code")
 					.equals("1000")) {
