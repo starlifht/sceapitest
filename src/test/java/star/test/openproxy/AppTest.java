@@ -173,6 +173,26 @@ public class AppTest {
 		}//}
 	}
 	@Test
+	public void uploadFile() {
+		String uri = "/cs/apps/"+appid+"/1";
+		data.put("name", new String[] { Tools.getRandomString(7)});
+		//for(int i = 0;i<=1;i++){
+		try {
+
+			String sigature = SignatureUtils.signatureForSce(data, secret, "POST", uri, signatureMethod);
+			data.put(SceOpenApiConstant.SIGNATURE, new String[] { sigature });
+			System.out.println(data);
+			String response = HTTPUtils.doPost(domain + uri, data, charset, null);
+			System.out.println("=========================");
+			System.out.println(response);
+			if(!JSONObject.fromObject(response).getString("code").equals("11500")){
+				fail(response);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}//}
+	}
+	@Test
 	public void getFile() {
 		String uri = "/cs/apps/"+appid+"/1";
 		data.put("name", new String[] { Tools.getRandomString(7)});
@@ -208,6 +228,27 @@ public class AppTest {
 			System.out.println("=========================");
 			System.out.println(response);
 			if(!JSONObject.fromObject(response).getString("code").equals("1000")){
+				fail(response);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}//}
+	}
+	@Test
+	public void deleteFile() {
+		String uri = "/cs/apps/"+appid+"/1";
+		//data.put("appid", new String[] { Tools.getRandomString(7)});
+		//for(int i = 0;i<=1;i++){
+		try {
+
+			String sigature = SignatureUtils.signatureForSce(data, secret, "DELETE", uri, signatureMethod);
+			data.put(SceOpenApiConstant.SIGNATURE, new String[] { sigature });
+
+			System.out.println(data);
+			String response = HTTPUtils.doDelete(domain + uri, data, charset, null);
+			System.out.println("=========================");
+			System.out.println(response);
+			if(!JSONObject.fromObject(response).getString("code").equals("11465")){
 				fail(response);
 			}
 		} catch (Exception e) {

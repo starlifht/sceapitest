@@ -96,12 +96,9 @@ public class UserTest {
 
 	@Test
 	public void getUserInfo() {// 获取用户信息
-
 		try {
-
 			String response = HttpClientUtil.doGet(Params.DOMAIN
 					+ "/user?access_token=" + ACCESS_TOKEN);
-
 			if (!JSONObject.fromObject(response).getString("code")
 					.equals("1000")) {
 				fail(response);
@@ -111,12 +108,9 @@ public class UserTest {
 			e.printStackTrace();
 		}
 	}
-
 	@Test
 	public void verifyBindOfUser() {// 验证用户名和手机或邮箱的绑定关系
-
 		try {
-
 			Map<String, String> data = new HashMap<String, String>();
 			data.put("userid", "starlifht");
 			data.put("mobile", "18810606513");
@@ -126,15 +120,11 @@ public class UserTest {
 			if (!JSONObject.fromObject(response).getString("code")
 					.equals("1000")) {
 				fail(response);
-			}
-			
+			}			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	
-	
+	}	
 	@Test
 	public void modiftyUserInfo() {// 修改用户信息
 
