@@ -5,6 +5,8 @@ import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
@@ -157,6 +159,8 @@ public static String doDelete(String url) throws Exception {
         conn.setDoOutput(true);
         conn.setRequestMethod("DELETE");
         conn.addRequestProperty("timestamp", String.valueOf(System.currentTimeMillis()));
+        conn.setRequestProperty("source", "sonsole");
+        conn.setRequestProperty("client-ip", "8.8.8.8");
         System.out.println(conn.getResponseCode()+conn.getResponseMessage());
         BufferedReader reader = new BufferedReader(new InputStreamReader(
         		conn.getInputStream()));
@@ -241,6 +245,36 @@ public static String doDelete(String url) throws Exception {
 		return sendRequest(httpPost);
 	}
 
+public static String downFile(String url){
+	HttpClient httpclient = new DefaultHttpClient();  
+	  HttpGet httpGet = new HttpGet(url);  
+	  httpGet.addHeader("client-ip","8.8.8.8");
+	  httpGet.addHeader("timestamp",String.valueOf(System.currentTimeMillis()));
+	  httpGet.addHeader("source","console");
+   
+     String status=null;
+      try {  
+    	  HttpResponse response=httpclient.execute(httpGet);  
+            HttpEntity entity=response.getEntity();
+         
+            status=response.getStatusLine().toString();
+          FileOutputStream out = new FileOutputStream(new File("d:\\tttt.zip"));  
+         InputStream in=entity.getContent();
+          byte[] b = new byte[1024];  
+          int len = 0;  
+          while((len=in.read(b))!= -1){  
+              out.write(b,0,len);  
+          }  
+          in.close();  
+          out.close();  
+            
+      }catch (Exception e){  
+        
+      }finally{  
+          httpGet.releaseConnection();  
+      }
+	return status;  
+}
 
 	public static String doPostFile(String url,String filePath) throws Exception{
 		 HttpClient httpclient = new DefaultHttpClient();  

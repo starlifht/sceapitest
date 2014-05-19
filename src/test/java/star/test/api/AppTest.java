@@ -77,15 +77,105 @@ public class AppTest {
 			}
 	}
 		@Test
+		public void getSecurity() {//获取app的详细信息
+			try {
+				String response= HttpClientUtil
+						.doGet(Params.DOMAIN+"/apps/"+Params.APPID+"/security?access_token="+Params.ACCESS_TOKEN);
+				System.out.print(response);
+				if(!JSONObject.fromObject(response).getString("code").equals("1000")){
+					fail(response);
+				}
+				
+			} catch (Exception e) {fail(e.toString());
+				e.printStackTrace();
+			}
+	}
+		@Test
+		public void addSecurity() {//获取app的详细信息
+			try {
+				Map<String,String> data =new HashMap<String ,String>();
+				data.put("rate", "888");
+//				data.put("min_ins","1");
+//				data.put("max_ins","1");
+//				data.put("is_schedule","false");
+				String response= HttpClientUtil
+						.doPost(Params.DOMAIN+"/apps/"+Params.APPID+"/security?access_token="+Params.ACCESS_TOKEN,data);
+				System.out.print(response);
+				if(!JSONObject.fromObject(response).getString("code").equals("1000")){
+					fail(response);
+				}
+				
+			} catch (Exception e) {fail(e.toString());
+				e.printStackTrace();
+			}
+	}
+		@Test
+		public void delSecurity_ip() {//获取app的详细信息
+			try {
+				Map<String,String> data =new HashMap<String ,String>();
+				data.put("ip", "9.9.9.9");
+				data.put("type","black");
+//				data.put("max_ins","1");
+//				data.put("is_schedule","false");
+				String response= HttpClientUtil
+						.doDelete(Params.DOMAIN+"/apps/"+Params.APPID+"/security/ip?access_token="+Params.ACCESS_TOKEN,data);
+				System.out.print(response);
+				if(!JSONObject.fromObject(response).getString("code").equals("1000")){
+					fail(response);
+				}
+				
+			} catch (Exception e) {fail(e.toString());
+				e.printStackTrace();
+			}
+	}
+		@Test
+		public void delSecurity_ua() {//获取app的详细信息
+			try {
+				Map<String,String> data =new HashMap<String ,String>();
+				data.put("ua", "9.9.9.9");
+				//data.put("type","black");
+//				data.put("max_ins","1");
+//				data.put("is_schedule","false");
+				String response= HttpClientUtil
+						.doDelete(Params.DOMAIN+"/apps/"+Params.APPID+"/security/ua?access_token="+Params.ACCESS_TOKEN,data);
+				System.out.print(response);
+				if(!JSONObject.fromObject(response).getString("code").equals("1000")){
+					fail(response);
+				}
+				
+			} catch (Exception e) {fail(e.toString());
+				e.printStackTrace();
+			}
+	}
+		@Test
+		public void delSecurity_rate() {//获取app的详细信息
+			try {
+//				Map<String,String> data =new HashMap<String ,String>();
+//				data.put("rate", "9.9.9.9");
+//				data.put("type","black");
+//				data.put("max_ins","1");
+//				data.put("is_schedule","false");
+				String response= HttpClientUtil
+						.doDelete(Params.DOMAIN+"/apps/"+Params.APPID+"/security/rate?access_token="+Params.ACCESS_TOKEN);
+				System.out.print(response);
+				if(!JSONObject.fromObject(response).getString("code").equals("1000")){
+					fail(response);
+				}
+				
+			} catch (Exception e) {fail(e.toString());
+				e.printStackTrace();
+			}
+	}
+		@Test
 		public void setConfig() {//获取app的详细信息
 			try {
 				Map<String,String> data =new HashMap<String ,String>();
-				data.put("requests", "8888");
-				data.put("min_ins","11");
-				data.put("max_ins","11");
-				data.put("is_schedule","true");
-				data.put("is_session","true");
-				data.put("container_type","C3");
+				data.put("requests", "88");
+				data.put("min_ins","1");
+				data.put("max_ins","1");
+				data.put("is_schedule","false");
+				data.put("is_session","false");
+				data.put("container_type","C1");
 				String response= HttpClientUtil
 						.doPut(Params.DOMAIN+"/apps/"+Params.APPID+"/config?access_token="+Params.ACCESS_TOKEN,data);
 				System.out.print(response);
@@ -101,7 +191,7 @@ public class AppTest {
 		public void getAppDomains() {//获取app的详细信息
 			try {
 				String response= HttpClientUtil
-						.doPut(Params.DOMAIN+"/apps/"+Params.APPID+"/domains?access_token="+Params.ACCESS_TOKEN);
+						.doGet(Params.DOMAIN+"/apps/"+Params.APPID+"/domains?access_token="+Params.ACCESS_TOKEN);
 				System.out.print(response);
 				if(!JSONObject.fromObject(response).getString("code").equals("1000")){
 					fail(response);
@@ -171,8 +261,8 @@ public class AppTest {
 		public void creatApp() {//创建APP
 			try {
 				Map<String,String> data =new HashMap<String ,String>();
-				data.put("name", Tools.getRandomString(7));
-				data.put("description", "random app creating");
+				data.put("name", "vgf45ty3");
+				data.put("description", "randomappcreating");
 				String response= HttpClientUtil
 						.doPost(Params.DOMAIN+"/apps?access_token="+Params.ACCESS_TOKEN,data);
 				System.out.print(response);
@@ -222,11 +312,12 @@ public class AppTest {
 		public void modifyAppVersionInfo() {//修改APP版本信息
 			try {
 				Map<String,String> data =new HashMap<String,String>();
-				data.put("version","2");
-				data.put("description","test测s试");
+				//data.put("version","4");
+			data.put("description","test测888s试");
 				//System.out.println(RandomStringUtils.random(6));
+				String version="1";
 				String response= HttpClientUtil
-						.doPut(DOMAIN+"/apps/"+APPID+"/versions?access_token="+ACCESS_TOKEN,data);
+						.doPut(DOMAIN+"/apps/"+APPID+"/versions/"+version+"?access_token="+ACCESS_TOKEN,data);
 				System.out.print(response);
 				if(!JSONObject.fromObject(response).getString("code").equals("1000")){
 					fail(response);
@@ -258,10 +349,10 @@ public class AppTest {
 		@Test
 		public void setCurrent_version() {//修改当前版本
 			try {
-				Map<String,String> data =new HashMap<String,String>();
-				data.put("version","1");
+//				Map<String,String> data =new HashMap<String,String>();
+//				data.put("version","1");
 				//data.put("description","test测试");
-				String version="2";
+				String version="1";
 				String response= HttpClientUtil
 						.doPost(DOMAIN+"/apps/"+APPID+"/versions/"+version+"?access_token="+ACCESS_TOKEN);
 				System.out.print(response);
@@ -308,23 +399,6 @@ public class AppTest {
 				e.printStackTrace();
 			}
 	}
-		@Test
-		public void stopInstance() {//停止实例
-			try {
-//				Map<String,String> data =new HashMap<String ,String>();
-//				data.put("description", "测试版本dfsd");
-				//System.out.println(RandomStringUtils.random(6));
-				String response= HttpClientUtil
-						.doPost(DOMAIN+"/instances/"+INSTANCEID+"/stop?access_token="+ACCESS_TOKEN);
-				System.out.print(response);
-				if(!JSONObject.fromObject(response).getString("code").equals("1000")){
-					fail(response);
-				}
-				
-			} catch (Exception e) {fail(e.toString());
-				e.printStackTrace();
-			}
-		}
 		
 		@Test
 		public void restartInstance() {//重启实例
@@ -348,7 +422,7 @@ public class AppTest {
 		public void deleteAppDomain() {//删除域名
 			try {
 				Map<String,String> data =new HashMap<String ,String>();
-				data.put("domain", "www.test.sta2r.com");
+				data.put("domain", "y7v.csapps.sohuno.com");
 		//	System.out.println(Tools.getRandomString(7));
 				String response= HttpClientUtil
 						.doDelete(DOMAIN+"/apps/"+APPID+"/domains?access_token="+ACCESS_TOKEN,data);
@@ -379,7 +453,119 @@ public class AppTest {
 				e.printStackTrace();
 			}
 	}
+		@Test
+		public void getSSH(){
+			try {
+				Map<String,String> data =new HashMap<String ,String>();
+				data.put("domain", "y7v.csapps.sohuno.com");
+		//	System.out.println(Tools.getRandomString(7));
+				String response= HttpClientUtil
+						.doGet(DOMAIN+"/instances/"+INSTANCEID+"/ssh?access_token="+ACCESS_TOKEN);
+				System.out.print(response);
+				if(!JSONObject.fromObject(response).getString("code").equals("1000")){
+					fail(response);
+				}
+				
+			} catch (Exception e) {fail(e.toString());
+				e.printStackTrace();
+			}
+		}
+		@Test
+		public void uploadApp(){
+			try {
+				 String appid="136504437";
+				 String version="1";
+				//	System.out.println(Tools.getRandomString(7));
+						String response= HttpClientUtil.doPostFile(DOMAIN+"/apps/"+appid+"/"+version+"?access_token="+ACCESS_TOKEN, "/10207.zip");
+						System.out.print(response);
+						if(!JSONObject.fromObject(response).getString("code").equals("1000")){
+							fail(response);
+						}
+						
+					} catch (Exception e) {fail(e.toString());
+						e.printStackTrace();
+					}
+		}
+		@Test
+		public void downloadApp(){
+			try {
+				 String appid="136504437";
+				 String version="1";
+				//	System.out.println(Tools.getRandomString(7));
+						String response= HttpClientUtil.downFile(DOMAIN+"/apps/"+appid+"/"+version+"?access_token="+ACCESS_TOKEN);
+						System.out.print(response);
+						if(!JSONObject.fromObject(response).getString("code").equals("1000")){
+							fail(response);
+						}
+						
+					} catch (Exception e) {fail(e.toString());
+						e.printStackTrace();
+					}
+		}
+		@Test
+		public void checkFile(){//文件是否存在
+			try {
+				 String appid="136504437";
+				 String version="1";
+				//	System.out.println(Tools.getRandomString(7));
+						String response= HttpClientUtil.doGet(DOMAIN+"/apps/"+appid+"/"+version+"/check?access_token="+ACCESS_TOKEN);
+						System.out.print(response);
+						if(!JSONObject.fromObject(response).getString("code").equals("1000")){
+							fail(response);
+						}
+						
+					} catch (Exception e) {fail(e.toString());
+						e.printStackTrace();
+					}
+		}
+		@Test
+		public void deleteFile(){//文件是否存在
+			try {
+				 String appid="136504437";
+				 String version="1";
+				//	System.out.println(Tools.getRandomString(7));
+						String response= HttpClientUtil.doDelete(DOMAIN+"/apps/"+appid+"/"+version+"?access_token="+ACCESS_TOKEN);
+						System.out.print(response);
+						if(!JSONObject.fromObject(response).getString("code").equals("1000")){
+							fail(response);
+						}
+						
+					} catch (Exception e) {fail(e.toString());
+						e.printStackTrace();
+					}
+		}
+		@Test
+		public void openSSH(){
+			try {
 		
+		//	System.out.println(Tools.getRandomString(7));
+				String response= HttpClientUtil
+						.doPut(DOMAIN+"/instances/"+INSTANCEID+"/ssh/open?access_token="+ACCESS_TOKEN);
+				System.out.print(response);
+				if(!JSONObject.fromObject(response).getString("code").equals("1000")){
+					fail(response);
+				}
+				
+			} catch (Exception e) {fail(e.toString());
+				e.printStackTrace();
+			}
+		}
+		@Test
+		public void closeSSH(){
+			try {
+		
+		//	System.out.println(Tools.getRandomString(7));
+				String response= HttpClientUtil
+						.doPut(DOMAIN+"/instances/"+INSTANCEID+"/ssh/close?access_token="+ACCESS_TOKEN);
+				System.out.print(response);
+				if(!JSONObject.fromObject(response).getString("code").equals("1000")){
+					fail(response);
+				}
+				
+			} catch (Exception e) {fail(e.toString());
+				e.printStackTrace();
+			}
+		}
 		@Test
 		public void restartApp() {//增加APP的版本
 			try {

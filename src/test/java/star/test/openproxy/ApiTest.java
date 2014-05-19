@@ -1,41 +1,29 @@
 package star.test.openproxy;
 
-import java.io.BufferedReader;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
-import java.net.URL;
 import java.net.URLEncoder;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.Certificate;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLPeerUnverifiedException;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import star.api.methods.Tools;
-import star.test.methods.Params;
 
 
 
 public class ApiTest {
-	 //String domain = "http://api.sce.sohu.com";
-String domain ="http://10.121.41.106:8080";
+	 String domain = "http://api.sce.sohu.com";
+//String domain ="http://10.121.41.106:8080";
 		String signatureMethod = "HmacSHA1";
 		String charset = "UTF-8";
 		String appid = "146954184";
 		String instanceid="fe426ebc-dcb2-4318-8d62-d7e17b5f6ec7";
 		//String accessKey = "1qaz";
-		String accessKey = "8682a469fb0a4dde06a4302aab15aeab";//a9c661486f1e7ef2fd245021b72050ec
+		String accessKey = "91068dd79f2f99f84d956fe11a17ee1a";//a9c661486f1e7ef2fd245021b72050ec
 		//String secret = "2wsx";
-		String secret = "cba2637444448bb057d482200727b4b8";
+		String secret = "e3b5187e5739f9c7e371efdf2f5a8395";
 		Map<String, String[]> data = new HashMap<String, String[]>();
 	@Test
 	public void testAuth() {
@@ -81,118 +69,15 @@ String domain ="http://10.121.41.106:8080";
 		data.put(SceOpenApiConstant.VERSION, new String[] { "1.0" });
 	}
 
-	@Test
-	public void testGetDomain() {
+	
 
-		String uri = "/cs/apps/" + appid + "/domains";
-		try {
-			String sigature = SignatureUtils.signatureForSce(data, secret, "GET", uri, signatureMethod);
-			data.put(SceOpenApiConstant.SIGNATURE, new String[] { sigature });
+	
 
-			String response = HTTPUtils.doGet(domain + uri, data, charset, null);
-			System.out.println("=========================");
-			System.out.println(response);
+	
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	
 
-	}
-
-	@Test
-	public void testAddDomain() {
-
-		String uri = "/cs/apps/" + appid + "/domains";
-
-		data.put("domain", new String[] { "hly1.csapps.sohuno.com" });
-		try {
-
-			String sigature = SignatureUtils.signatureForSce(data, secret, "POST", uri, signatureMethod);
-			data.put(SceOpenApiConstant.SIGNATURE, new String[] { sigature });
-
-			System.out.println(data);
-			String response = HTTPUtils.doPost(domain + uri, data, charset, null);
-			System.out.println("=========================");
-			System.out.println(response);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Test
-	public void deleteDomain() {
-		String uri = "/cs/apps/" + appid + "/domains";
-		data.put("domain", new String[] { "hly1.csapps.sohuno.com" });
-		try {
-
-			String sigature = SignatureUtils.signatureForSce(data, secret, "DELETE", uri, signatureMethod);
-			data.put(SceOpenApiConstant.SIGNATURE, new String[] { sigature });
-
-			System.out.println(data);
-			String response = HTTPUtils.doDelete(domain + uri, data, charset, null);
-			System.out.println("=========================");
-			System.out.println(response);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Test
-	public void testCleanDomain() {
-		String uri = "/cs/apps/" + appid + "/domains/clean";
-		data.put("domain", new String[] { "hly*.csapps.sohuno.com" });
-		try {
-
-			String sigature = SignatureUtils.signatureForSce(data, secret, "DELETE", uri, signatureMethod);
-			data.put(SceOpenApiConstant.SIGNATURE, new String[] { sigature });
-
-			System.out.println(data);
-			String response = HTTPUtils.doDelete(domain + uri, data, charset, null);
-			System.out.println("=========================");
-			System.out.println(response);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	@Test
-	public void getAppList() {
-		String uri = "/cs/apps";
-		//data.put("domain", new String[] { "hly*.csapps.sohuno.com" });
-		//for(int i = 0;i<=1;i++){
-		try {
-
-			String sigature = SignatureUtils.signatureForSce(data, secret, "GET", uri, signatureMethod);
-			data.put(SceOpenApiConstant.SIGNATURE, new String[] { sigature });
-
-			System.out.println(data);
-			String response = HTTPUtils.doGet(domain + uri, data, charset, null);
-			System.out.println("=========================");
-			System.out.println(response);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}//}
-	}
-	@Test
-	public void getAppInstances() {
-		String uri = "/cs/apps/"+appid+"/instances";
-		//data.put("domain", new String[] { "hly*.csapps.sohuno.com" });
-		try {
-
-			String sigature = SignatureUtils.signatureForSce(data, secret, "GET", uri, signatureMethod);
-			data.put(SceOpenApiConstant.SIGNATURE, new String[] { sigature });
-
-			System.out.println(data);
-			String response = HTTPUtils.doGet(domain + uri, data, charset, null);
-			System.out.println("=========================");
-			System.out.println(response);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	
 	@Test
 	public void getServInstancesBystatus() {
 		String uri = "/cs/services/instances";
@@ -244,43 +129,8 @@ String domain ="http://10.121.41.106:8080";
 			e.printStackTrace();
 		}
 	}
-	@Test
-	public void deleteAPP() {
-		String uri = "/cs/apps/296490937";
-		data.put("name", new String[] { "aTwuvQh" });
-		try {
-
-			String sigature = SignatureUtils.signatureForSce(data, secret, "DELETE", uri, signatureMethod);
-			data.put(SceOpenApiConstant.SIGNATURE, new String[] { sigature });
-
-			System.out.println(data);
-			String response = HTTPUtils.doDelete(domain + uri, data, charset, null);
-			System.out.println("=========================");
-			System.out.println(response);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	@Test
-	public void creatApp() {
-		String uri = "/cs/apps";
-		data.put("name", new String[] { Tools.getRandomString(7) });
-		data.put("description", new String[] { "radomdfsdcreat" });
-		try {
-
-			String sigature = SignatureUtils.signatureForSce(data, secret, "POST", uri, signatureMethod);
-			data.put(SceOpenApiConstant.SIGNATURE, new String[] { sigature });
-
-			System.out.println(data);
-			String response = HTTPUtils.doPost(domain + uri, data, charset, null);
-			System.out.println("=========================");
-			System.out.println(response);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	
+	
 	@Test
 	public void userlogin() {
 		String uri = "/cs/user/login";
@@ -345,26 +195,7 @@ String domain ="http://10.121.41.106:8080";
 			e.printStackTrace();
 		}
 	}
-	@Test
-	public void getUserInfo() {
-		//String userid = "starlifht";
-		String uri = "/cs/user";
-		//data.put("domain", new String[] { "hly*.csapps.sohuno.com" });
-
-		try {
-
-			String sigature = SignatureUtils.signatureForSce(data, secret, "GET", uri, signatureMethod);
-			data.put(SceOpenApiConstant.SIGNATURE, new String[] { sigature });
-
-			System.out.println(data);
-			String response = HTTPUtils.doGet(domain + uri, data, charset, null);
-			System.out.println("=========================");
-			System.out.println(response);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	
 	@Test
 	public void getSystemLogs() throws UnsupportedEncodingException {
 		//String userid = "starlifht";
@@ -390,28 +221,7 @@ String domain ="http://10.121.41.106:8080";
 			e.printStackTrace();
 		}
 	}
-	@Test
-	public void modiftyUserInfo() {
-		String uri = "/cs/user";
-		//data.put("domain", new String[] { "hly*.csapps.sohuno.com" });
-		data.put("name", new String[] {"测试吧"});
-		data.put("qq", new String[] {"8888888"});
-//		data.put("dp_password",new String[] { "false"});
-//		data.put("user_type", new String[] {"1"});
-		try {
-
-			String sigature = SignatureUtils.signatureForSce(data, secret, "PUT", uri, signatureMethod);
-			data.put(SceOpenApiConstant.SIGNATURE, new String[] { sigature });
-
-			System.out.println(data);
-			String response = HTTPUtils.doPut(domain + uri, data, charset, null);
-			System.out.println("=========================");
-			System.out.println(response);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	
 	@Test
 	public void dePositToUser() {
 		String uri = "/cs/account/deposit";
@@ -441,27 +251,7 @@ String domain ="http://10.121.41.106:8080";
 			e.printStackTrace();
 		}
 	}
-	@Test
-	public void modiftyUserPwd() {
-		String uri = "/cs/user/change_password";
-		//data.put("domain", new String[] { "hly*.csapps.sohuno.com" });
-		data.put("password", new String[] {"asd123"});
-		//data.put("qq", new String[] {"8888888"});
-//		data.put("dp_password",new String[] { "false"});
-//		data.put("user_type", new String[] {"1"});
-		try {
-
-			String sigature = SignatureUtils.signatureForSce(data, secret, "PUT", uri, signatureMethod);
-			data.put(SceOpenApiConstant.SIGNATURE, new String[] { sigature });
-			System.out.println(data);
-			String response = HTTPUtils.doPut(domain + uri, data, charset, null);
-			System.out.println("=========================");
-			System.out.println(response);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	
 	@Test
 	public void asddUserToApp() {
 		String uri = "/cs/user/"+appid;
@@ -484,24 +274,7 @@ String domain ="http://10.121.41.106:8080";
 			e.printStackTrace();
 		}
 	}
-	@Test
-	public void getConfig() {
-		String uri = "/cs/apps/" + appid + "/config";
-		try {
-
-			String sigature = SignatureUtils.signatureForSce(data, secret, "GET", uri, signatureMethod);
-			data.put(SceOpenApiConstant.SIGNATURE, new String[] { sigature });
-
-			System.out.println(data);
-			String response = HTTPUtils.doGet(domain + uri, data, charset, null);
-			System.out.println("=========================");
-			System.out.println(response);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
+	
 	@Test
 	public void setConfig() {
 
@@ -527,26 +300,7 @@ String domain ="http://10.121.41.106:8080";
 			e.printStackTrace();
 		}
 	}
-	@Test
-	public void restartApp() {
 
-		String uri = "/cs/apps/" + appid + "/restart";
-
-	
-		try {
-
-			String sigature = SignatureUtils.signatureForSce(data, secret, "POST", uri, signatureMethod);
-			data.put(SceOpenApiConstant.SIGNATURE, new String[] { sigature });
-
-			System.out.println(data);
-			String response = HTTPUtils.doPost(domain + uri, data, charset, null);
-			System.out.println("=========================");
-			System.out.println(response);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 	// https://api.sohu.com/oauth2/authorize?client_id=d142ec65623a4a0081c9560cb522f1e6&redirect_uri=http://www.test.com&response_type=code
 	// http://www.test.com/?code=4d0fc88f9a32cfaa222d4c9f89911587
 

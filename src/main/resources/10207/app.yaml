@@ -1,0 +1,4 @@
+appid: 136504437
+install: [jetty]
+start: $JETTY_START
+webHealth: true

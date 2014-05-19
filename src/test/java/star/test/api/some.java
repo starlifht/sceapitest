@@ -19,7 +19,7 @@ public class some {
 	public static final String  DOMAIN=Params.DOMAIN;
 	//public static final String  DOMAIN="http://localhost";
 	//public static final String  DOMAIN="http://openapi-test.apps.sohuno.com";
-	public static final String  ACCESS_TOKEN="fe21549eb2659916f8a3f3cd72aa2781";//测试
+	public static final String  ACCESS_TOKEN=Params.ACCESS_TOKEN;//测试
 	//public static final String  ACCESS_TOKEN="bb4028f1240acd48938ce8967a77c134";//线上
 	public static final String APPID="10207";
 	public static final String RULE_ID="93695";
@@ -68,12 +68,28 @@ public class some {
 			e.printStackTrace();
 		}
 }
+
+	@Test
+	public void stopInstance() {//停止实例
+		try {
+//			Map<String,String> data =new HashMap<String ,String>();
+//			data.put("description", "测试版本dfsd");
+			//System.out.println(RandomStringUtils.random(6));
+			String response= HttpClientUtil
+					.doPost(DOMAIN+"/instances/"+INSTANCEID+"/stop?access_token="+ACCESS_TOKEN);
+			System.out.print(response);
+			if(!JSONObject.fromObject(response).getString("code").equals("1000")){
+				fail(response);
+			}
+			
+		} catch (Exception e) {fail(e.toString());
+			e.printStackTrace();
+		}
+	}
 	@Test
 	public void deleteInstance() {//删除实例
 		try {
-			Map<String,String> data =new HashMap<String ,String>();
-			data.put("version", Integer.toString(2));
-		
+			
 			String response= HttpClientUtil
 					.doDelete(DOMAIN+"/instances/"+INSTANCEID+"?access_token="+ACCESS_TOKEN);
 			System.out.print(response);

@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import net.sf.json.JSONObject;
 
@@ -20,7 +21,7 @@ public class UserTest {
 	// public static final String
 	// ACCESS_TOKEN="97043a103dfa54b2344b741300459a8e";//测试
 	public static final String ACCESS_TOKEN = Params.ACCESS_TOKEN;// 线上
-	public static final String userID="starwang1";
+	public static final String userID="kevin1986";
 	public static final String captcha="682376";
 	public UserTest() {
 	}
@@ -84,7 +85,7 @@ public class UserTest {
 					+ userid + "/is_exist");
 			System.out.print(response);
 			if (!JSONObject.fromObject(response).getString("code")
-					.equals("10654")) {
+					.equals("1000")) {
 				fail(response);
 			}
 		
@@ -142,8 +143,8 @@ public class UserTest {
 			Map<String, String> data = new HashMap<String, String>();
 		//	data.put("userid", "km_moon33");
 			data.put("name", "测试的啊");
-			data.put("qq", "888888");
-			data.put("email", "888888@qq.com");
+			data.put("qq", String.valueOf(new Random().nextInt(999999)));
+		//	data.put("email", "107607195@qq.com");
 			String response = HttpClientUtil.doPut(Params.DOMAIN
 					+ "/user?access_token=" + ACCESS_TOKEN, data);
 
@@ -200,7 +201,7 @@ public class UserTest {
 
 		try {
 			Map<String, String> data = new HashMap<String, String>();
-			data.put("title", "teswerers");
+			data.put("title", "test44");
 
 			// data.put("key", "testusers");
 			String response = HttpClientUtil.doDelete(Params.DOMAIN
@@ -240,11 +241,14 @@ public class UserTest {
 	public void modiftyUserPwd() {// 修改用户密码
 
 		try {
+			String userid="";
 			Map<String, String> data = new HashMap<String, String>();
 			data.put("userid", "starwang1");
-			data.put("password", "testusers");
+			data.put("password", "asd123");
+			data.put("dest", "");
+			data.put("captcha", "");
 			String response = HttpClientUtil.doPut(Params.DOMAIN
-					+ "/user/change_password?access_token=" + ACCESS_TOKEN,
+					+ "/user/"+userid+"change_password?",
 					data);
 
 			if (!JSONObject.fromObject(response).getString("code")
@@ -322,7 +326,7 @@ public class UserTest {
 
 		try {
 			Map<String, String> data = new HashMap<String, String>();
-			data.put("userid", "km_moon232");
+			data.put("userid", "chongyang");
 			// 1.owner（表示该app转移了创建人） 2.admin 3.user
 			// data.put("role", "3");
 			String response = HttpClientUtil.doDelete(Params.DOMAIN + "/user/"
@@ -355,7 +359,41 @@ public class UserTest {
 			e.printStackTrace();
 		}
 	}
+	@Test
+	public void getSecretkey() {// 获取用户安全提醒设置
 
+		try {
+			String password="asd123";
+			String response = HttpClientUtil.doGet(Params.DOMAIN
+					+ "/user/secret_key?access_token=" + ACCESS_TOKEN+"&password="+password);
+			System.out.print(response);
+
+			if (!JSONObject.fromObject(response).getString("code")
+					.equals("1000")) {
+				fail(response);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	@Test
+	public void creatSecretkey() {// 重新生成secretkey
+		Map<String, String> data = new HashMap<String, String>();
+		data.put("password", "asd123");
+		try {
+		
+			String response = HttpClientUtil.doPost(Params.DOMAIN
+					+ "/user/secret_key?access_token=" + ACCESS_TOKEN,data);
+			System.out.print(response);
+
+			if (!JSONObject.fromObject(response).getString("code")
+					.equals("1000")) {
+				fail(response);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	@Test
 	public void setReminderConfig() {// 配置用户安全提醒设置
 
@@ -381,9 +419,9 @@ public class UserTest {
 	public void userRegister() {// 注册用户
 		try {
 			Map<String, String> data = new HashMap<String, String>();
-			data.put("userid", "starwang88");
-			data.put("password", "asd123");
-			data.put("mobile", "18899998888");
+			data.put("userid", "10z0661");
+			data.put("password", "asd");
+			data.put("mobile", "13911720830");
 		//	data.put("client-ip", "8.8.8.8");
 			String response = HttpClientUtil.doPost(Params.DOMAIN
 					+ "/user/register", data);
@@ -415,10 +453,12 @@ public class UserTest {
 		try {
 			Map<String, String> data = new HashMap<String, String>();
 			data.put("type", "mobile"); //web|email|mobile
-			data.put("dest", "18899998888");
-			data.put("template", "106");
+			data.put("dest", "17910606519");
+			data.put("template", "101");
+			String dest="18811606513";
+			String template="101";
 			String response = HttpClientUtil.doPost(Params.DOMAIN
-					+ "/user/captcha?access_token=" + ACCESS_TOKEN, data);
+					+ "/user/captcha/"+dest+"/"+template+"?access_token=" + ACCESS_TOKEN, data);
 			System.out.print(response);
 			if (!JSONObject.fromObject(response).getString("code")
 					.equals("1000")) {
@@ -435,7 +475,7 @@ public class UserTest {
 		try {
 			Map<String, String> data = new HashMap<String, String>();
 			data.put("type", "mobile"); //web|email|mobile
-			data.put("dest", "18810606513");
+			data.put("dest", "18810606544");
 			data.put("captcha", "620140");
 			data.put("template", "102");
 			String response = HttpClientUtil.doPut(Params.DOMAIN
@@ -528,8 +568,8 @@ public class UserTest {
 	@Test
 	public void modifyDynamicpassword() {// 修改动态口令状态。
 		try {
-			String captcha="948289";
-			String status="0";//0:设置成初始化状态；2.解绑
+			String captcha="793328";
+			String status="2";//0:设置成初始化状态；2.解绑
 			String response = HttpClientUtil.doDelete(Params.DOMAIN
 					+  "/user/"+userID+"/dynamic_password/"+captcha+"?access_token=" + ACCESS_TOKEN+"&status="+status);
 			System.out.print(response);
