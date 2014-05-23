@@ -168,7 +168,7 @@ public class SignatureUtils {
 		// (5) base64
 		BASE64Encoder base64Encoder = new BASE64Encoder();
 		rtn= base64Encoder.encode(rawHmac);
-		rtn.replace(" ", "+");
+		rtn=rtn.replace(" ", "+");
 		String sigature = URLEncoder.encode(rtn,CHARSET_UTF8);
 		System.out.println("sigature:>>"+sigature);
 		return sigature;

@@ -14,7 +14,7 @@ import star.api.methods.Tools;
 
 
 public class ApiTest {
-	 String domain = "http://api.sce.sohu.com";
+	 String domain = "http://10.1.41.167";
 //String domain ="http://10.121.41.106:8080";
 		String signatureMethod = "HmacSHA1";
 		String charset = "UTF-8";

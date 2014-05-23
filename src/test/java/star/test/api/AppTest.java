@@ -263,6 +263,8 @@ public class AppTest {
 				Map<String,String> data =new HashMap<String ,String>();
 				data.put("name", "vgf45ty3");
 				data.put("description", "randomappcreating");
+				data.put("container_type", "c5");
+				data.put("stack", "jetty");
 				String response= HttpClientUtil
 						.doPost(Params.DOMAIN+"/apps?access_token="+Params.ACCESS_TOKEN,data);
 				System.out.print(response);

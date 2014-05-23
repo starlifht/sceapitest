@@ -59,10 +59,10 @@ public class UserTest {
 		try {
 
 			Map<String, String> data = new HashMap<String, String>();
-			data.put("userid", "starwang99");
+			data.put("userid", "18810606513");
 			data.put("password", "asd123");
-			data.put("dp_password", "false");
-			data.put("user_type", "1");
+//			data.put("dp_password", "false");
+//			data.put("user_type", "1");
 			String response = HttpClientUtil.doPost(Params.DOMAIN
 					+ "/user/login", data);
 			System.out.print(response);

@@ -21,7 +21,7 @@ public class ServiceGatewayTest {
 	public static final String  ACCESS_TOKEN=Params.ACCESS_TOKEN;//测试
 	//public static final String  ACCESS_TOKEN="97043a103dfa54b2344b741300459a8e";//线上
 	public static final String APPID=Params.APPID;
-		private static final String SERV_INSTANCEID="517c1f90-81a1-4387-9131-af49edb71207";
+		private static final String SERV_INSTANCEID="93f18885-67fe-4a57-92c5-5b9d5d676693";
 	public ServiceGatewayTest() {
 	}
 
@@ -37,7 +37,7 @@ public class ServiceGatewayTest {
 	public void getServInstancesBystatus() {//查询某个（所有）状态的服务实例 pendding | running | stopped | deleted
 		try {
 			String response= HttpClientUtil
-					.doGet(DOMAIN+"/services/instances?access_token="+ACCESS_TOKEN+"&status=pendding");
+					.doGet(DOMAIN+"/services/instances?access_token="+ACCESS_TOKEN+"&status=running");
 			System.out.print(response);
 			if(!JSONObject.fromObject(response).getString("code").equals("1000")){
 				fail(response);
@@ -64,6 +64,19 @@ public class ServiceGatewayTest {
 		try {
 			String response= HttpClientUtil
 					.doGet(DOMAIN+"/services/instances/"+SERV_INSTANCEID+"/token?access_token="+ACCESS_TOKEN);
+			System.out.print(response);
+			if(!JSONObject.fromObject(response).getString("code").equals("1000")){
+				fail(response);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}}
+	@Test
+	public void getTokenOfMySQL() {//查询某个服务实例的认证token－目前仅限于mysql
+		try {
+			String response= HttpClientUtil
+					.doGet(DOMAIN+"/db/service_instance/1cf52b89-00b9-483e-af5c-8718029b90db/token?access_token="+ACCESS_TOKEN);
 			System.out.print(response);
 			if(!JSONObject.fromObject(response).getString("code").equals("1000")){
 				fail(response);
